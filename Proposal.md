@@ -38,7 +38,7 @@ _3. A user saves off stocks to a favorites list for which the prices are automat
 
 2. Dependent on GraphView maybe for doing some graphs on budget request.
 
-3. Currently the receipts will be keep store at the phone, maybe by security releasons will be better to have an access with the user own bank to retrieve the receipts data.
+3. Currently the receipts will be keep store at the phone, maybe by security reasons will be better to have an access with the user own bank to retrieve the receipts data.
 
 _Does your application require any support outside of what is natively onboard the phone._
 
