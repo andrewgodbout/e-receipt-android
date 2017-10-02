@@ -1,11 +1,13 @@
 ## Project IDEA Template
 
 ### Project Title:
-Title of you Project
+
+# E-RECEIPT
 
 Example: Stock Portfolio Tracker
 
 ### Project Description:
+
 
 A high level overview of what your app does.
 
