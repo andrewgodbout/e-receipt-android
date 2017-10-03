@@ -6,7 +6,7 @@
 
 ### Project Description:
 
-E-RECEIPT would take every receipt in every store you purchase something into the app, for an easy storage, sorting and extra features as budget per month based on expenses.
+Ideally, this app would be used to revolutionize the way of storing receipts and accessing information. A full working scenario would be where a user can identify him/herself by using a barcode on the phone which upon scanned at the cashier will give access to the account. As the items are scanned and paid for, a digital receipt will be sent to the account. The use can access these receipts at any time, and can search receipts through the store or date. The app also has the option to create a budget and display it through a graph. This will allow the user to see monthly expenses and plan a budget accordingly. 
 
 ### Use Cases (at least 3):
 Short descriptions of how someone will use your application.
@@ -17,11 +17,13 @@ Short descriptions of how someone will use your application.
 
 3. A user can check the items purchased and the price associated with each product.
 
-4. A user can organize a budget based on his past month/year purchases (aimed at students to create a budget).
+4. A user can organize a budget based on his past month/year purchases through a "create budget" button that will calculate monthly expense and display them in a graph (aimed at students to create a budget).
 
 ### Dependencies
 
 1. Currently the receipts will be keep store at the phone or in a json format url but depending on time we might store it in an array on the phone 
+
+2. Depending on time limitations, we might use a pie chart graph to display monthly spendings over a period of ~ 6 months. 
 
 ### Potential Contributions of Members
 
@@ -38,12 +40,12 @@ Time will definitely be an issue if we are focused too much on the UI elements. 
 
 Creating the JSON url might be challenging because we have a very little understanding on to create a url with multiple data stored in JSON format.
 
-Doing the extra UI elements for budget can be tricky.
+Doing the extra UI elements for budget can be tricky such as receiving information from the json file, storing it to a variable, then using that variable as an entry for the graph. 
 
 
 ### Target Audience / Existing Similar Apps
 
-The target audience are students, because they can plan a budget since they can't have a fixed source of income. But also any person with an economic life ( works, care for budget, fixed or unfixed salary, debit or credit cards ) can find this app very useful.
+The target audience are students, because they can plan a budget since they don't have a fixed source of income. But also any one who works, cares for budget, has fixed or unfixed salary, can find this app very useful.
 
 ### Testing
 
