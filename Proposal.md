@@ -8,47 +8,20 @@
 
 E-RECEIPT would take every receipt in every store you purchase something into the app, for an easy storage, sorting and extra features as budget per month based on expenses.
 
-A high level overview of what your app does.
-
-_Example:_
-_An app that allows people to create a portfolio of stocks that they track like apple or coca-cola and lets them graph the stock for different time periods and compare stock performance for multiple different stocks._
-
 ### Use Cases (at least 3):
 Short descriptions of how someone will use your application.
 
-1. A user will sync his phone with the store machine after a purchase to store the new receipt. ( We will probably run the app with an array of pre-made receipts to run test )
+1. A user will sync his phone with the store machine after a purchase to store the new receipt. ( We will probably run the app with an array of pre-made receipts to run test or create a JSONurl similar to assignment and store data there )
 
-2. A user can check purchases in the store xxx or last purchases.
+2. A user can check purchases in the store xxx through searching date, name of store and/or amount.
 
-3. A user can show the information on receipt.
+3. A user can check the items purchased and the price associated with each product.
 
-4. A user can organize budget based on his past month/year purchases.
-
-_Example:_
-
-_1. A user wants to check the current price of a certain stock._
-
-_2. A user wants to be notified if the stock price is dropping lots that day_
-
-_3. A user saves off stocks to a favorites list for which the prices are automatically loaded and displayed upon opening the app at a later time._
+4. A user can organize a budget based on his past month/year purchases (aimed at students to create a budget).
 
 ### Dependencies
 
-1. Dependent on new non-existen features for stores sharing receipts.
-
-2. Dependent on GraphView maybe for doing some graphs on budget request.
-
-3. Currently the receipts will be keep store at the phone, maybe by security reasons will be better to have an access with the user own bank to retrieve the receipts data.
-
-_Does your application require any support outside of what is natively onboard the phone._
-
-_Example:_
-
-_1. Dependent on the iex stock exchange API to get up to date stock information_
-
-_2. Dependent on the GraphView Library or a similar graphing library we will investigate options to make cool graphs_
-
-_3. Currently we are thinking of maintaining the stocks the customer is interested in locally on the phone but pending time we might try to save them out to a server_
+1. Currently the receipts will be keep store at the phone or in a json format url but depending on time we might store it in an array on the phone 
 
 ### Potential Contributions of Members
 
@@ -68,25 +41,14 @@ _The project report will be a unified effort as will the in class presentation a
 
 ### Potential hurdles
 
-The idea is extract from ideaswatch.com and some features to make a feasible app needs more knowledge on security of the app. Also a permits of receiving the receipt data to an app.
+Time will definitely be an issue if we are focused too much on the UI elements. Having each person commit by a deadline might become challenging if the problem requires external help. 
 
-_Identify any hurdles you might encounter here and some potential contingency plans_
+Creating the JSON url might be challenging because we have a very little understanding on to create a url with multiple data stored in JSON format. 
 
-_Example:_
-
-_Time might be a hurdle. If time is running low, then we can remove the background monitoring of stocks and team members can combine forces on the UI portion of the app._
-
-_We do not really know how to save data on the phone nor onto a server so we do not yet really know how much work is involved with that. However we could always simulate saving the data, or just write out simple key and value pairs which should be manageable._
 
 ### Target Audience / Existing Similar Apps
 
 The target audience are students, because they can plan a budget since they can't have a fixed source of income. But also any person with an economic life ( works, care for budget, fixed or unfixed salary, debit or credit cards ) can find this app very useful.
-
-_Identify who might use this app and which apps already exist that are similar._
-
-_Example:_
-
-_Potential users - people who want to get notifications and track stock prices for apps. There are many similar apps on the app stock such as the My Stocks Portfolio app._
 
 ### Testing
 
