@@ -7,5 +7,5 @@ import android.os.Bundle;
 public class ReceiptListActivity extends SingleFragmentActivity {
 
     @Override
-    protected Fragment createFragment() {return new ReceiptList_Fragment(); }
+    protected Fragment createFragment() {return new ReceiptListFragment(); }
 }
