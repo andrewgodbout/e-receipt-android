@@ -1,8 +1,7 @@
 package com.bignerdranch.android.e_receipts;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.os.Bundle;
+import android.support.v4.app.Fragment;
+
 
 public class ReceiptListActivity extends SingleFragmentActivity {
 
