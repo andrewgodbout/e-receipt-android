@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="44dp"
-                android:text="@string/show_receipt_button"/>
+                android:text="@string/check_budget_button"/>
 
         </TableRow>
 
