@@ -1,6 +1,7 @@
 package cs2130.trojanhorses.e_receipt;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by Aleix on 10/20/2017.
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 public class Receipt {
 
+    private UUID mUUID;
     private String mDate;
     private String mStore;
     private ArrayList<String> mItems;
@@ -18,6 +20,14 @@ public class Receipt {
         mItems = new ArrayList<>();
     }
 
+    public Receipt() {
+        mUUID = UUID.randomUUID();
+    }
+
+    public UUID getId() {
+        return mUUID;
+    }
+    
     public String getDate() {
         return mDate;
     }
