@@ -22,7 +22,7 @@ public class ReceiptPagerActivity extends AppCompatActivity {
 
         mViewPager = (ViewPager) findViewById(R.id.receipt_view_pager);
 
-        mReceipts = ReceiptList.get(this).getReceipts();
+        //mReceipts = ReceiptList.get(this).getReceipts();
 
     }
 
