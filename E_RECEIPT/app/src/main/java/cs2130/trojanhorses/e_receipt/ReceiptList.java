@@ -6,7 +6,7 @@ package cs2130.trojanhorses.e_receipt;
 
 public class ReceiptList {
 
-    private ReceiptList{
+    private ReceiptList(){
 
     }
 }
