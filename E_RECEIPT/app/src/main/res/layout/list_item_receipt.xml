@@ -7,20 +7,6 @@
                                              android:orientation="vertical"
                                              android:layout_margin="1dp"
                                              android:background="@android:color/white" >
-
-    <TextView
-        android:id="@+id/shop_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/store_name"
-        android:textColor="@android:color/black"
-        android:textSize="18sp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-
     <TextView
         android:id="@+id/price_total"
         android:layout_width="0dp"
@@ -28,7 +14,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="@string/total_price"
         android:textColor="@android:color/black"
         android:textSize="22sp"
         app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +28,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="16sp"
-        android:text="@string/receipt_date"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/shop_name"
