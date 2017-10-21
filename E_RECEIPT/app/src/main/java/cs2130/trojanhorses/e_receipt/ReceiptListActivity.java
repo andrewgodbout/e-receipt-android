@@ -45,8 +45,8 @@ public class ReceiptListActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View view) {
-            Intent intent = ReceiptActivity.receiptsInstance(ReceiptListActivity.this, mReceipt);
-            startActivity(intent);
+            //Intent intent = ReceiptActivity.receiptsInstance(ReceiptListActivity.this, mReceipt);
+            //startActivity(intent);
         }
     }
 

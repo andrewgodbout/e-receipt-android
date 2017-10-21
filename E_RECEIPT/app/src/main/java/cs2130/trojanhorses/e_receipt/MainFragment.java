@@ -18,5 +18,24 @@ public class MainFragment extends Fragment{
         return view;
     }
 
+    public void onClickShowReceiptsButton(View view){
+
+    }
+
+    public void onClickCheckBudgetButton(View view){
+
+    }
+
+    public void onClickLoadReceiptsButton(View view){
+
+    }
+
+    public void onClickAddReceiptsButton(View view){
+
+    }
+
+
+
+
 
 }
