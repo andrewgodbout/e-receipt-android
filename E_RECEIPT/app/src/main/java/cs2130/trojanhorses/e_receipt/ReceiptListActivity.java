@@ -33,7 +33,7 @@ public class ReceiptListActivity extends AppCompatActivity {
 
 
     private ArrayList<Receipt> mReceipts;
-
+    private ReceiptLab mReceiptLab;
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
     private boolean mLoading;
@@ -56,33 +56,21 @@ public class ReceiptListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mReceiptAdapter = new ReceiptAdapter(mReceipts);
         mRecyclerView.setAdapter(mReceiptAdapter);
+        updateRecyclerView();
 
     }
 
-    private class ReceiptHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    private void updateRecyclerView() {
+        List<Receipt> receipts = mReceiptLab.getReceipts();
 
-        private TextView mName;
-        private TextView mDate;
-        private Receipt mReceipt;
-
-        public ReceiptHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item_receipt, parent, false));
-            itemView.setOnClickListener(this);
-
-            mDate = (TextView) itemView.findViewById(R.id.receipt_date);
+        if (mReceiptAdapter == null) {
+            mReceiptAdapter = new ReceiptAdapter(receipts);
+            mRecyclerView.setAdapter(mReceiptAdapter);
+        } else {
+            mReceiptAdapter.notifyDataSetChanged();
         }
 
-        public void bind (Receipt receipt){
-            mDate.setText(mReceipt.getDate());
-        }
-
-        @Override
-        public void onClick(View view) {
-            //Intent intent = ReceiptActivity.receiptsInstance(ReceiptListActivity.this, mReceipt);
-            //startActivity(intent);
-        }
     }
-
 
     private URL buildURL( ) {
         URL url = null;
@@ -122,23 +110,17 @@ public class ReceiptListActivity extends AppCompatActivity {
             try {
                 httpURLConnection = (HttpURLConnection) params[0].openConnection();
 
-                //as per https://developer.android.com/reference/java/net/HttpURLConnection.html
-                //a buffered input stream is safest for reading from website
-                //we are only getting a small amount of data, with larger amounts the bufferedinputstream
-                //is safest
                 InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
                 Scanner scan = new Scanner(in);
                 StringBuilder sb = new StringBuilder();
 
-                //on the off chance there was a \n character in the website results
-                //build the string piece by piece
                 while(scan.hasNext()) {
                     sb.append(scan.nextLine());
                 }
                 resultString = sb.toString();
             }catch(IOException e) {
                 e.printStackTrace();
-                Toast.makeText(ReceiptListActivity.this, "Error coonnecting to Rusty's Website ",
+                Toast.makeText(ReceiptListActivity.this, "Error connecting to the Website ",
                         Toast.LENGTH_SHORT).show();
             }finally {
                 httpURLConnection.disconnect();
@@ -163,6 +145,30 @@ public class ReceiptListActivity extends AppCompatActivity {
         }
     }
 
+    private class ReceiptHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
+        private TextView mName;
+        private TextView mDate;
+        private Receipt mReceipt;
+
+        public ReceiptHolder(LayoutInflater inflater, ViewGroup parent) {
+            super(inflater.inflate(R.layout.list_item_receipt, parent, false));
+            itemView.setOnClickListener(this);
+
+            mDate = (TextView) itemView.findViewById(R.id.receipt_date);
+        }
+
+        public void bind (Receipt receipt){
+            mDate.setText(mReceipt.getDate());
+        }
+
+        @Override
+        public void onClick(View view) {
+            //Intent intent = ReceiptActivity.receiptsInstance(ReceiptListActivity.this, mReceipt);
+            //startActivity(intent);
+        }
+    }
+
 
     private class ReceiptAdapter extends RecyclerView.Adapter<ReceiptHolder>{
 
@@ -174,17 +180,19 @@ public class ReceiptListActivity extends AppCompatActivity {
 
         @Override
         public ReceiptHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return null;
+            LayoutInflater layoutInflater = LayoutInflater.from(ReceiptListActivity.this);
+            return new ReceiptHolder(layoutInflater, parent);
         }
 
         @Override
         public void onBindViewHolder(ReceiptHolder holder, int position) {
-
+            Receipt receipt = mReceipts.get(position);
+            holder.bind(receipt);
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return mReceipts.size();
         }
     }
 

@@ -13,11 +13,10 @@ import java.util.UUID;
 public class ReceiptLab {
 
     private static ReceiptLab sReceiptLab;
-
-    private static List<Receipt> sReceipts;
+    private static List<Receipt> mReceipts;
 
     public ReceiptLab(Context context) {
-        sReceipts = new ArrayList<>();
+        mReceipts = new ArrayList<>();
     }
 
     public static ReceiptLab get(Context context) {
@@ -27,12 +26,12 @@ public class ReceiptLab {
         return sReceiptLab;
     }
 
-    private List<Receipt> getReceipts() {
-        return sReceipts;
+    public List<Receipt> getReceipts() {
+        return mReceipts;
     }
 
     public Receipt getReceipt(UUID id) {
-        for (Receipt receipt: sReceipts) {
+        for (Receipt receipt: mReceipts) {
             if (receipt.getId().equals(id)) {
                 return receipt;
             }
@@ -41,6 +40,7 @@ public class ReceiptLab {
     }
 
     public void add(Receipt receipt) {
-        sReceipts.add(receipt);
+        mReceipts.add(receipt);
     }
+
 }

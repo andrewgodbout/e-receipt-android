@@ -9,7 +9,7 @@ import java.util.UUID;
 
 public class Receipt {
 
-    private UUID mUUID;
+    private UUID mId;
     private String mDate;
     private String mStore;
     private ArrayList<String> mItems;
@@ -18,14 +18,15 @@ public class Receipt {
         mDate = date;
         mStore = store;
         mItems = new ArrayList<>();
+        mId = UUID.randomUUID();
     }
 
     public Receipt() {
-        mUUID = UUID.randomUUID();
+        mId = UUID.randomUUID();
     }
 
     public UUID getId() {
-        return mUUID;
+        return mId;
     }
     
     public String getDate() {
