@@ -13,7 +13,7 @@ import java.util.UUID;
 public class ReceiptLab {
 
     private static ReceiptLab sReceiptLab;
-    private static List<Receipt> mReceipts;
+    private List<Receipt> mReceipts;
 
     public ReceiptLab(Context context) {
         mReceipts = new ArrayList<>();
@@ -37,6 +37,10 @@ public class ReceiptLab {
             }
         }
         return null;
+    }
+
+    private ReceiptLab(){
+        mReceipts = new ArrayList<>();
     }
 
     public void add(Receipt receipt) {

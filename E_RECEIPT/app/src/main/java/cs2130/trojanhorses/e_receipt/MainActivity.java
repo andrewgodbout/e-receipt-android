@@ -17,9 +17,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickShowReceiptsButton(View view){
-        Intent intent = new Intent (MainActivity.this, ReceiptListActivity.class);
+        Intent intent = ReceiptListActivity.newIntent(MainActivity.this);
         startActivity(intent);
-
     }
 
     public void onClickCheckBudgetButton(View view){

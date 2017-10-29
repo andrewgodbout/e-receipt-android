@@ -1,5 +1,7 @@
 package cs2130.trojanhorses.e_receipt;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -32,11 +34,12 @@ import java.util.Scanner;
 public class ReceiptListActivity extends AppCompatActivity {
 
 
-    private ArrayList<Receipt> mReceipts;
+    //private ArrayList<Receipt> mReceipts;
     private ReceiptLab mReceiptLab;
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
     private boolean mLoading;
+
 
     private final String AUTHORITY = "137.149.157.18";
     private final String PATH = "CS2130/e-receipt/";
@@ -50,14 +53,19 @@ public class ReceiptListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_list);
 
-        mReceipts = new ArrayList<>();
+        //mReceipts = new ArrayList<>();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mReceiptAdapter = new ReceiptAdapter(mReceipts);
+        //mReceiptAdapter = new ReceiptAdapter(mReceipts);
         mRecyclerView.setAdapter(mReceiptAdapter);
         updateRecyclerView();
 
+    }
+
+    public static Intent newIntent(Context packageContext){
+        Intent intent = new Intent (packageContext,ReceiptListActivity.class);
+        return intent;
     }
 
     private void updateRecyclerView() {
@@ -97,7 +105,7 @@ public class ReceiptListActivity extends AppCompatActivity {
             super.onPreExecute();
 
             mLoading = true;
-            mReceipts.clear();
+            //mReceipts.clear();
         }
 
         @Override
@@ -136,7 +144,7 @@ public class ReceiptListActivity extends AppCompatActivity {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                mReceipts.clear();
+                //mReceipts.clear();
                 Toast.makeText(ReceiptListActivity.this, "Error loading receipts", Toast.LENGTH_SHORT).show();
             } finally {
                 mLoading = false;

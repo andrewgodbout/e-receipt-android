@@ -7,17 +7,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by Aleix on 10/20/2017.
+ * Created by David on 10/20/2017.
  */
 
-public class ReceiptActivity extends Fragment {
+public class ReceiptActivity extends AppCompatActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_receipt);
     }
 
-    //public static Intent receiptsInstance(Context context, Receipt receipt){
+
 
 
 

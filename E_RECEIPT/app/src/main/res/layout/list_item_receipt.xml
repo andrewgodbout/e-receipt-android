@@ -16,6 +16,7 @@
         android:layout_marginTop="16dp"
         android:textColor="@android:color/black"
         android:textSize="22sp"
+        android:text="David"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -30,7 +31,8 @@
         android:layout_margin="16sp"
         android:textColor="@android:color/darker_gray"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/shop_name"
+        android:text="test"
+
         app:layout_constraintRight_toLeftOf="@+id/price_total"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginRight="0dp"
