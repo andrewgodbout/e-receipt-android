@@ -18,9 +18,9 @@ public class ReceiptLab {
     public ReceiptLab(Context context) {
 
         mReceipts = new ArrayList<>();
-        for (int i=0; i<30; i++){
+        /*for (int i=0; i<30; i++){
             mReceipts.add(new Receipt());
-        }
+        }*/
     }
 
 

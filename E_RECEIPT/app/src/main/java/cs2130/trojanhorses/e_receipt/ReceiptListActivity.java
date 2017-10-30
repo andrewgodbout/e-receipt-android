@@ -36,6 +36,7 @@ public class ReceiptListActivity extends AppCompatActivity {
 
 
     //private ArrayList<Receipt> mReceipts;
+    private Receipt mReceipt;
     private ReceiptLab mReceiptLab;
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
@@ -45,9 +46,10 @@ public class ReceiptListActivity extends AppCompatActivity {
     private final String AUTHORITY = "137.149.157.18";
     private final String PATH = "CS2130/e-receipt/";
     private final String SCHEME = "http";
-    private final String QUERY = "receipt";
-    private final String QUERY_PARAM = "?date=20171004";
+    private final String QUERY = "date";
+    private final String QUERY_PARAM = "20171004";
 
+    private final String URL = "http://137.149.157.18/CS2130/e-receipt/?date=20171001";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -58,6 +60,7 @@ public class ReceiptListActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         /*mReceiptAdapter = new ReceiptAdapter(mReceipts);
         mRecyclerView.setAdapter(mReceiptAdapter);*/
+        updateUI();
         updateRecyclerView();
 
     }
@@ -95,21 +98,26 @@ public class ReceiptListActivity extends AppCompatActivity {
         return url;
     }
 
-    /*private static Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
+    private void updateUI(){
+        URL url = buildURL();
+        new eReceiptQuery().execute(url);
+    }
+
+    private static Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
 
         String date_purchased = jsonObject.getString("date");
         String items_list = jsonObject.getString("items");
         String store_name = jsonObject.getString("store");
 
-        //Customer customer = new Customer(name, start, dest);
+        Receipt receipt = new Receipt(date_purchased, store_name);
 
-        JSONArray jsArr = jsonObject.getJSONArray("details");
+        /*JSONArray jsArr = jsonObject.getJSONArray("details");
         for (int i = 0; i < jsArr.length(); i++) {
-            customer.addTurn(jsArr.getString(i));
-        }
+            receipt.addTurn(jsArr.getString(i));
+        }*/
 
-        return customer;
-    }/*
+        return receipt;
+    }
 
     /**
      *              AsyncTask to receive from a URL
@@ -160,8 +168,8 @@ public class ReceiptListActivity extends AppCompatActivity {
                 for (int i = 0; i < jsonArray.length(); i++) {
                     jsonObject = jsonArray.getJSONObject(i);
 
-                    //mReceipt = parseCustomer(jsonObject);
-                    //add(mCustomer);
+                    mReceipt = parseReceipt(jsonObject);
+                    mReceiptLab.add(mReceipt);
                 }
 
             } catch (JSONException e) {
@@ -184,12 +192,13 @@ public class ReceiptListActivity extends AppCompatActivity {
         public ReceiptHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_receipt, parent, false));
             itemView.setOnClickListener(this);
+
             mDate = (TextView) itemView.findViewById(R.id.receipt_date);
         }
 
         public void bind (Receipt receipt){
             mReceipt = receipt;
-            mDate.setText("12.11.2016");
+            mDate.setText("Date of receipt: "+mReceipt.getDate());
         }
 
         @Override
