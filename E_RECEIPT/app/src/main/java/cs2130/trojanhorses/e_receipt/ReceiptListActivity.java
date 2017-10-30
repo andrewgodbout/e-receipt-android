@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -45,7 +46,7 @@ public class ReceiptListActivity extends AppCompatActivity {
     private final String PATH = "CS2130/e-receipt/";
     private final String SCHEME = "http";
     private final String QUERY = "receipt";
-    private final String QUERY_PARAM = "all";
+    private final String QUERY_PARAM = "?date=20171004";
 
 
     @Override
@@ -53,12 +54,10 @@ public class ReceiptListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_list);
 
-        //mReceipts = new ArrayList<>();
-
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //mReceiptAdapter = new ReceiptAdapter(mReceipts);
-        mRecyclerView.setAdapter(mReceiptAdapter);
+        /*mReceiptAdapter = new ReceiptAdapter(mReceipts);
+        mRecyclerView.setAdapter(mReceiptAdapter);*/
         updateRecyclerView();
 
     }
@@ -69,7 +68,8 @@ public class ReceiptListActivity extends AppCompatActivity {
     }
 
     private void updateRecyclerView() {
-        List<Receipt> receipts = mReceiptLab.getReceipts();
+        ReceiptLab receiptLab = ReceiptLab.get(this);
+        List<Receipt> receipts = receiptLab.getReceipts();
 
         if (mReceiptAdapter == null) {
             mReceiptAdapter = new ReceiptAdapter(receipts);
@@ -94,6 +94,22 @@ public class ReceiptListActivity extends AppCompatActivity {
         }
         return url;
     }
+
+    /*private static Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
+
+        String date_purchased = jsonObject.getString("date");
+        String items_list = jsonObject.getString("items");
+        String store_name = jsonObject.getString("store");
+
+        //Customer customer = new Customer(name, start, dest);
+
+        JSONArray jsArr = jsonObject.getJSONArray("details");
+        for (int i = 0; i < jsArr.length(); i++) {
+            customer.addTurn(jsArr.getString(i));
+        }
+
+        return customer;
+    }/*
 
     /**
      *              AsyncTask to receive from a URL
@@ -137,10 +153,16 @@ public class ReceiptListActivity extends AppCompatActivity {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-
+        protected void onPostExecute(String resultString) {
+            JSONObject jsonObject;
             try {
-                JSONArray jsonArray = new JSONArray(result);
+                JSONArray jsonArray = new JSONArray(resultString);
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    jsonObject = jsonArray.getJSONObject(i);
+
+                    //mReceipt = parseCustomer(jsonObject);
+                    //add(mCustomer);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -155,25 +177,27 @@ public class ReceiptListActivity extends AppCompatActivity {
 
     private class ReceiptHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        private TextView mName;
+        //private TextView mName;
         private TextView mDate;
         private Receipt mReceipt;
 
         public ReceiptHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_receipt, parent, false));
             itemView.setOnClickListener(this);
-
             mDate = (TextView) itemView.findViewById(R.id.receipt_date);
         }
 
         public void bind (Receipt receipt){
-            mDate.setText(mReceipt.getDate());
+            mReceipt = receipt;
+            mDate.setText("12.11.2016");
         }
 
         @Override
         public void onClick(View view) {
             //Intent intent = ReceiptActivity.receiptsInstance(ReceiptListActivity.this, mReceipt);
             //startActivity(intent);
+            int clicked = R.string.clicked_toast;
+            Toast.makeText(ReceiptListActivity.this, clicked, Toast.LENGTH_SHORT).show();
         }
     }
 

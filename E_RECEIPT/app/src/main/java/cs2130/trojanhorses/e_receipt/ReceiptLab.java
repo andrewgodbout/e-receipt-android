@@ -16,8 +16,13 @@ public class ReceiptLab {
     private List<Receipt> mReceipts;
 
     public ReceiptLab(Context context) {
+
         mReceipts = new ArrayList<>();
+        for (int i=0; i<30; i++){
+            mReceipts.add(new Receipt());
+        }
     }
+
 
     public static ReceiptLab get(Context context) {
         if (sReceiptLab == null) {
