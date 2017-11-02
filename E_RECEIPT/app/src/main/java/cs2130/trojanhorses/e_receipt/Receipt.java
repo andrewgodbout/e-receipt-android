@@ -1,6 +1,5 @@
 package cs2130.trojanhorses.e_receipt;
 
-import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -12,18 +11,19 @@ public class Receipt {
     private UUID mId;
     private String mDate;
     private String mStore;
-    private ArrayList<String> mItems;
+    private Item[] mItems;
 
-    public Receipt (String date, String store){
+    public Receipt (String date, String store, Item[] itemList){
         mDate = date;
         mStore = store;
-        mItems = new ArrayList<>();
+        mItems = itemList;
         mId = UUID.randomUUID();
     }
+
 
     public Receipt() {
         mId = UUID.randomUUID();
-    }
+    } /** I don't think that we should create empty Receipts */
 
     public UUID getId() {
         return mId;
@@ -45,11 +45,12 @@ public class Receipt {
         mStore = store;
     }
 
-    public ArrayList<String> getItems() {
+    public Item[] getItems() {
         return mItems;
     }
 
-    public void addItems(String items) {
+    /** You don't need to add Items to a receipt, it comes with items already. */
+    /*public void addItems(String items) {
         mItems.add(items);
-    }
+    }*/
 }

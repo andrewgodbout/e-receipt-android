@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,18 +49,21 @@ public class ReceiptListActivity extends AppCompatActivity {
     private final String QUERY = "date";
     private final String QUERY_PARAM = "20171004";
 
-    private final String URL = "http://137.149.157.18/CS2130/e-receipt/?date=20171001";
+    //private final String URL = "http://137.149.157.18/CS2130/e-receipt/?date=20171001";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
+        Log.d("TAG", "Before the Storm");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_list);
 
+        Log.d("TAG", "Before the Storm");
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         /*mReceiptAdapter = new ReceiptAdapter(mReceipts);
         mRecyclerView.setAdapter(mReceiptAdapter);*/
         updateUI();
+        Log.d("TAG", "After updateUI");
         updateRecyclerView();
 
     }
@@ -106,10 +109,11 @@ public class ReceiptListActivity extends AppCompatActivity {
     private static Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
 
         String date_purchased = jsonObject.getString("date");
-        String items_list = jsonObject.getString("items");
+        JSONArray items_list = jsonObject.getJSONArray("items");
         String store_name = jsonObject.getString("store");
+        Item[] items = new Item[0];
 
-        Receipt receipt = new Receipt(date_purchased, store_name);
+        Receipt receipt = new Receipt(date_purchased, store_name, items);
 
         /*JSONArray jsArr = jsonObject.getJSONArray("details");
         for (int i = 0; i < jsArr.length(); i++) {
@@ -236,6 +240,4 @@ public class ReceiptListActivity extends AppCompatActivity {
             return mReceipts.size();
         }
     }
-
-
 }
