@@ -25,6 +25,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -34,13 +35,11 @@ import java.util.Scanner;
 
 public class ReceiptListActivity extends AppCompatActivity {
 
-
-    //private ArrayList<Receipt> mReceipts;
-    private Receipt mReceipt;
     private ReceiptLab mReceiptLab;
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
     private boolean mLoading;
+    private boolean mDataLoaded;
 
 
     private final String AUTHORITY = "137.149.157.18";
@@ -60,11 +59,15 @@ public class ReceiptListActivity extends AppCompatActivity {
         Log.d("TAG", "Before the Storm");
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        /*mReceiptAdapter = new ReceiptAdapter(mReceipts);
-        mRecyclerView.setAdapter(mReceiptAdapter);*/
-        updateUI();
-        Log.d("TAG", "After updateUI");
+
         updateRecyclerView();
+
+        if (!mDataLoaded)
+            updateUI();
+
+
+        Log.d("TAG", "After updateUI");
+
 
     }
 
@@ -74,8 +77,9 @@ public class ReceiptListActivity extends AppCompatActivity {
     }
 
     private void updateRecyclerView() {
-        ReceiptLab receiptLab = ReceiptLab.get(this);
-        List<Receipt> receipts = receiptLab.getReceipts();
+        Log.d("TAG","update recycler view executed");
+
+        List<Receipt> receipts = mReceiptLab.getReceipts();
 
         if (mReceiptAdapter == null) {
             mReceiptAdapter = new ReceiptAdapter(receipts);
@@ -83,7 +87,7 @@ public class ReceiptListActivity extends AppCompatActivity {
         } else {
             mReceiptAdapter.notifyDataSetChanged();
         }
-
+        Log.d("TAG","update recycler view finished executing");
     }
 
     private URL buildURL( ) {
@@ -113,7 +117,8 @@ public class ReceiptListActivity extends AppCompatActivity {
         String store_name = jsonObject.getString("store");
         Item[] items = new Item[0];
 
-        Receipt receipt = new Receipt(date_purchased, store_name, items);
+        //Receipt receipt = new Receipt(date_purchased, store_name, items); //removed for debugging
+        Receipt receipt = new Receipt(date_purchased, store_name);
 
         /*JSONArray jsArr = jsonObject.getJSONArray("details");
         for (int i = 0; i < jsArr.length(); i++) {
@@ -167,13 +172,14 @@ public class ReceiptListActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String resultString) {
             JSONObject jsonObject;
+
             try {
                 JSONArray jsonArray = new JSONArray(resultString);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     jsonObject = jsonArray.getJSONObject(i);
 
-                    mReceipt = parseReceipt(jsonObject);
-                    mReceiptLab.add(mReceipt);
+                    //parseReceipt(jsonObject);
+                    mReceiptLab.add(parseReceipt(jsonObject));
                 }
 
             } catch (JSONException e) {
@@ -184,13 +190,15 @@ public class ReceiptListActivity extends AppCompatActivity {
                 mLoading = false;
             }
             mReceiptAdapter.notifyDataSetChanged();
+            mDataLoaded = true;
         }
     }
 
     private class ReceiptHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
-        //private TextView mName;
+        private TextView mPrice;
         private TextView mDate;
+
         private Receipt mReceipt;
 
         public ReceiptHolder(LayoutInflater inflater, ViewGroup parent) {
@@ -198,11 +206,14 @@ public class ReceiptListActivity extends AppCompatActivity {
             itemView.setOnClickListener(this);
 
             mDate = (TextView) itemView.findViewById(R.id.receipt_date);
+            mPrice = (TextView) itemView.findViewById(R.id.price_total);
+
         }
 
         public void bind (Receipt receipt){
             mReceipt = receipt;
-            mDate.setText("Date of receipt: "+mReceipt.getDate());
+            mDate.setText(mReceipt.getDate());
+            mPrice.setText("$12.00");
         }
 
         @Override

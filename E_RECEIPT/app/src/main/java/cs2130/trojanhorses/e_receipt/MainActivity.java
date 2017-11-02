@@ -47,15 +47,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void onClickLoadReceiptsButton(View view){
+    /*public void onClickLoadReceiptsButton(View view){
         new eReceiptQuery().execute(mURL);
-    }
+    }*/
 
     public void onClickAddReceiptsButton(View view){
 
     }
 
-    private static Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
+    /*private static Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
         String datePurchased = jsonObject.getString("date");
         JSONArray itemsList = jsonObject.getJSONArray("items");
         String storeName = jsonObject.getString("store");
@@ -68,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         Receipt receipt = new Receipt(datePurchased, storeName, items);
 
         return receipt;
-    }
-
+    }*/
+/*
     private class eReceiptQuery extends AsyncTask<URL, Void, String> {
 
         @Override
@@ -131,6 +131,6 @@ public class MainActivity extends AppCompatActivity {
             }
             //mReceiptAdapter.notifyDataSetChanged();
         }
-    }
+    }*/
 }
 

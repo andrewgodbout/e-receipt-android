@@ -1,6 +1,7 @@
 package cs2130.trojanhorses.e_receipt;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,14 +16,10 @@ public class ReceiptLab {
     private static ReceiptLab sReceiptLab;
     private List<Receipt> mReceipts;
 
-    public ReceiptLab(Context context) {
-
+    private ReceiptLab(Context context) {
+        Log.d("TAG", "receipt lab executed");
         mReceipts = new ArrayList<>();
-        /*for (int i=0; i<30; i++){
-            mReceipts.add(new Receipt());
-        }*/
     }
-
 
     public static ReceiptLab get(Context context) {
         if (sReceiptLab == null) {
@@ -42,10 +39,6 @@ public class ReceiptLab {
             }
         }
         return null;
-    }
-
-    private ReceiptLab(){
-        mReceipts = new ArrayList<>();
     }
 
     public void add(Receipt receipt) {
