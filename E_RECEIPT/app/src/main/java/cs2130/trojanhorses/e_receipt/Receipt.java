@@ -13,10 +13,10 @@ public class Receipt {
     private String mStore;
     private Item[] mItems;
 
-    public Receipt (String date, String store){//}, Item[] itemList){
+    public Receipt (String date, String store, Item[] itemList){
         mDate = date;
         mStore = store;
-        //mItems = itemList;
+        mItems = itemList;
         mId = UUID.randomUUID();
     }
 

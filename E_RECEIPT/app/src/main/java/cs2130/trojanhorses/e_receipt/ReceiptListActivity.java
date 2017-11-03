@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,20 +34,17 @@ import java.util.Scanner;
  * Created by Aleix on 10/20/2017.
  */
 
-public class ReceiptListActivity extends AppCompatActivity {
+public class ReceiptListActivity extends AppCompatActivity implements Callbackable {
 
     private ReceiptLab mReceiptLab;
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
+
     private boolean mLoading;
     private boolean mDataLoaded;
 
+    public void update() {updateRecyclerView();}
 
-    private final String AUTHORITY = "137.149.157.18";
-    private final String PATH = "CS2130/e-receipt/";
-    private final String SCHEME = "http";
-    private final String QUERY = "date";
-    private final String QUERY_PARAM = "20171004";
 
     //private final String URL = "http://137.149.157.18/CS2130/e-receipt/?date=20171001";
 
@@ -56,14 +54,13 @@ public class ReceiptListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_list);
 
+        Intent intent = getIntent();
+
         Log.d("TAG", "Before the Storm");
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        updateRecyclerView();
-
-        if (!mDataLoaded)
-            updateUI();
+        loadData();
 
 
         Log.d("TAG", "After updateUI");
@@ -90,108 +87,15 @@ public class ReceiptListActivity extends AppCompatActivity {
         Log.d("TAG","update recycler view finished executing");
     }
 
-    private URL buildURL( ) {
-        URL url = null;
-        Uri.Builder uri = new Uri.Builder();
-        try {
-            url = new URL (uri.scheme(SCHEME)
-                    .authority(AUTHORITY)
-                    .appendEncodedPath(PATH)
-                    .appendQueryParameter(QUERY, QUERY_PARAM)
-                    .build().toString());
-        }catch(MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return url;
-    }
 
-    private void updateUI(){
+    /*private void updateUI(){
         URL url = buildURL();
         new eReceiptQuery().execute(url);
-    }
+    }*/
 
-    private static Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
-
-        String date_purchased = jsonObject.getString("date");
-        JSONArray items_list = jsonObject.getJSONArray("items");
-        String store_name = jsonObject.getString("store");
-        Item[] items = new Item[0];
-
-        //Receipt receipt = new Receipt(date_purchased, store_name, items); //removed for debugging
-        Receipt receipt = new Receipt(date_purchased, store_name);
-
-        /*JSONArray jsArr = jsonObject.getJSONArray("details");
-        for (int i = 0; i < jsArr.length(); i++) {
-            receipt.addTurn(jsArr.getString(i));
-        }*/
-
-        return receipt;
-    }
-
-    /**
-     *              AsyncTask to receive from a URL
-     */
-    private class eReceiptQuery extends AsyncTask<URL, Void, String> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            mLoading = true;
-            //mReceipts.clear();
-        }
-
-        @Override
-        protected String doInBackground(URL... params) {
-
-            String resultString = "";
-
-            HttpURLConnection httpURLConnection = null;
-
-            try {
-                httpURLConnection = (HttpURLConnection) params[0].openConnection();
-
-                InputStream in = new BufferedInputStream(httpURLConnection.getInputStream());
-                Scanner scan = new Scanner(in);
-                StringBuilder sb = new StringBuilder();
-
-                while(scan.hasNext()) {
-                    sb.append(scan.nextLine());
-                }
-                resultString = sb.toString();
-            }catch(IOException e) {
-                e.printStackTrace();
-                Toast.makeText(ReceiptListActivity.this, "Error connecting to the Website ",
-                        Toast.LENGTH_SHORT).show();
-            }finally {
-                httpURLConnection.disconnect();
-            }
-            return resultString;
-        }
-
-        @Override
-        protected void onPostExecute(String resultString) {
-            JSONObject jsonObject;
-
-            try {
-                JSONArray jsonArray = new JSONArray(resultString);
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    jsonObject = jsonArray.getJSONObject(i);
-
-                    //parseReceipt(jsonObject);
-                    mReceiptLab.add(parseReceipt(jsonObject));
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-                //mReceipts.clear();
-                Toast.makeText(ReceiptListActivity.this, "Error loading receipts", Toast.LENGTH_SHORT).show();
-            } finally {
-                mLoading = false;
-            }
-            mReceiptAdapter.notifyDataSetChanged();
-            mDataLoaded = true;
-        }
+    private void loadData() {
+        mReceiptLab = ReceiptLab.get(ReceiptListActivity.this, this); //start asynctask
+        updateRecyclerView();
     }
 
     private class ReceiptHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -207,13 +111,12 @@ public class ReceiptListActivity extends AppCompatActivity {
 
             mDate = (TextView) itemView.findViewById(R.id.receipt_date);
             mPrice = (TextView) itemView.findViewById(R.id.price_total);
-
         }
 
         public void bind (Receipt receipt){
             mReceipt = receipt;
             mDate.setText(mReceipt.getDate());
-            mPrice.setText("$12.00");
+            mPrice.setText("12.00");
         }
 
         @Override

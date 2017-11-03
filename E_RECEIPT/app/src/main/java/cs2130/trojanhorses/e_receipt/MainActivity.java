@@ -22,14 +22,14 @@ import java.util.Scanner;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final URL mURL = new URL("http://137.149.157.18/CS2130/e-receipt/?date=20171001");
+    //private final URL mURL = new URL("http://137.149.157.18/CS2130/e-receipt/?date=20171001");
 
     private boolean mLoading;
     private Receipt mReceipt;
     private ReceiptLab mReceiptLab;
 
-    public MainActivity() throws MalformedURLException {
-    }
+    //public MainActivity() throws MalformedURLException {
+    //}
 
 
     @Override
@@ -39,7 +39,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickShowReceiptsButton(View view){
-        Intent intent = ReceiptListActivity.newIntent(MainActivity.this);
+        //Intent intent = ReceiptListActivity.newIntent(MainActivity.this);
+        Intent intent = new Intent (this, ReceiptListActivity.class);
         startActivity(intent);
     }
 

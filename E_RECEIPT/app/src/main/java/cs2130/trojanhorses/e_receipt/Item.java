@@ -6,27 +6,27 @@ package cs2130.trojanhorses.e_receipt;
 
 public class Item {
 
-    private String mitemName;
-    private double mitemPrice;
+    private String mItemName;
+    private double mItemPrice;
 
     public Item(String itemName, double itemPrice) {
-        mitemName = itemName;
-        mitemPrice = itemPrice;
+        mItemName = itemName;
+        mItemPrice = itemPrice;
     }
 
-    public String getMitemName() {
-        return mitemName;
+    public String getItemName() {
+        return mItemName;
     }
 
-    public void setMitemName(String mitemName) {
-        this.mitemName = mitemName;
+    public void setItemName(String itemName) {
+        this.mItemName = itemName;
     }
 
-    public double getMitemPrice() {
-        return mitemPrice;
+    public double getItemPrice() {
+        return mItemPrice;
     }
 
-    public void setMitemPrice(double mitemPrice) {
-        this.mitemPrice = mitemPrice;
+    public void setItemPrice(double itemPrice) {
+        this.mItemPrice = itemPrice;
     }
 }
