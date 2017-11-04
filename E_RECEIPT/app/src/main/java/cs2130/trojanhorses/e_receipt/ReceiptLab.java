@@ -3,9 +3,7 @@ package cs2130.trojanhorses.e_receipt;
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.telecom.Call;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,7 +35,8 @@ public class ReceiptLab {
     private final String PATH = "CS2130/e-receipt/";//?date=20171004";
     private final String SCHEME = "http";
     private final String QUERY = "date";
-    private final String QUERY_PARAM = "20171021";
+    //private final String QUERY_PARAM = "20171021";
+    private String queryParam = "201710";
 
     private ReceiptLab(Context context) {
         Log.d("TAG", "receipt lab executed");
@@ -80,7 +79,7 @@ public class ReceiptLab {
             url = new URL (uri.scheme(SCHEME)
                     .authority(AUTHORITY)
                     .appendEncodedPath(PATH)
-                    .appendQueryParameter(QUERY, QUERY_PARAM)
+                    .appendQueryParameter(QUERY, queryParam)
                     .build().toString());
         }catch(MalformedURLException e) {
             e.printStackTrace();
@@ -88,7 +87,18 @@ public class ReceiptLab {
         return url;
     }
 
-    private void run() {new eReceiptQuery(mCb).execute(buildURL());}
+    private void run() {
+        for ( int i = 1; i<30; i++) {
+            queryParam = "201710";
+            if (i < 10) {
+                queryParam = "2017100";
+                queryParam += i;
+            } else {
+                queryParam += i;
+            }
+            new eReceiptQuery(mCb).execute(buildURL());
+        }
+    }
 
     private Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
 
