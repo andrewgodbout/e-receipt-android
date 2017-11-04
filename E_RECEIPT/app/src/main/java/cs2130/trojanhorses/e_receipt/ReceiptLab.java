@@ -88,7 +88,7 @@ public class ReceiptLab {
     }
 
     private void run() {
-        for ( int i = 1; i<30; i++) {
+        for ( int i = 30; i>1; i--) {
             queryParam = "201710";
             if (i < 10) {
                 queryParam = "2017100";

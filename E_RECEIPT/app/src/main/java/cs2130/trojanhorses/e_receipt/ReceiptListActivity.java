@@ -25,8 +25,8 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
 
-    private boolean mLoading;
-    private boolean mDataLoaded;
+    //private boolean mLoading;
+    //private boolean mDataLoaded;
 
     public void update() {updateRecyclerView();}
 
@@ -79,6 +79,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
 
         private TextView mPrice;
         private TextView mDate;
+        private TextView mStore;
 
         private Receipt mReceipt;
 
@@ -88,20 +89,22 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
 
             mDate = (TextView) itemView.findViewById(R.id.receipt_date);
             mPrice = (TextView) itemView.findViewById(R.id.price_total);
+            mStore = (TextView) itemView.findViewById(R.id.store_name);
         }
 
         public void bind (Receipt receipt){
             mReceipt = receipt;
-            mDate.setText(mReceipt.getDate());
+            mDate.setText("Date Purchased: "+mReceipt.getDate());
             mPrice.setText(mReceipt.getTotal());
+            mStore.setText("Store: "+mReceipt.getStore());
         }
 
         @Override
         public void onClick(View view) {
-            //Intent intent = ReceiptActivity.receiptsInstance(ReceiptListActivity.this, mReceipt);
-            //startActivity(intent);
-            int clicked = R.string.clicked_toast;
-            Toast.makeText(ReceiptListActivity.this, clicked, Toast.LENGTH_SHORT).show();
+            Intent intent = ReceiptActivity.dataInstance(ReceiptListActivity.this, mReceipt);
+            startActivity(intent);
+            /*int clicked = R.string.clicked_toast;
+            Toast.makeText(ReceiptListActivity.this, clicked, Toast.LENGTH_SHORT).show();*/
         }
     }
 
