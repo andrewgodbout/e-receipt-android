@@ -2,13 +2,10 @@ package cs2130.trojanhorses.e_receipt;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.telecom.Call;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,19 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Created by Aleix on 10/20/2017.
@@ -50,21 +35,15 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
 
     @Override
     public void onCreate(Bundle savedInstanceState){
-        Log.d("TAG", "Before the Storm");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_list);
 
         Intent intent = getIntent();
 
-        Log.d("TAG", "Before the Storm");
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         loadData();
-
-
-        Log.d("TAG", "After updateUI");
-
 
     }
 
@@ -74,8 +53,6 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     }
 
     private void updateRecyclerView() {
-        Log.d("TAG","update recycler view executed");
-
         List<Receipt> receipts = mReceiptLab.getReceipts();
 
         if (mReceiptAdapter == null) {
@@ -116,7 +93,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         public void bind (Receipt receipt){
             mReceipt = receipt;
             mDate.setText(mReceipt.getDate());
-            mPrice.setText("12.00");
+            mPrice.setText(mReceipt.getTotal());
         }
 
         @Override

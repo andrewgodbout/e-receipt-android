@@ -1,5 +1,6 @@
 package cs2130.trojanhorses.e_receipt;
 
+import java.text.DecimalFormat;
 import java.util.UUID;
 
 /**
@@ -47,6 +48,15 @@ public class Receipt {
 
     public Item[] getItems() {
         return mItems;
+    }
+
+    public String getTotal() {
+        DecimalFormat df = new DecimalFormat("#.00");
+        double total = 0;
+        for (Item i: mItems) {
+            total += i.getItemPrice();
+        }
+        return df.format(total);
     }
 
     /** You don't need to add Items to a receipt, it comes with items already. */
