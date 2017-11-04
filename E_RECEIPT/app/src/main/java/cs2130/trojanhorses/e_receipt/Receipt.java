@@ -56,7 +56,7 @@ public class Receipt {
         for (Item i: mItems) {
             total += i.getItemPrice();
         }
-        return df.format(total);
+        return "$"+df.format(total);
     }
 
     /** You don't need to add Items to a receipt, it comes with items already. */
