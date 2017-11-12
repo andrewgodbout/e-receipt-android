@@ -1,6 +1,9 @@
 package cs2130.trojanhorses.e_receipt;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -20,6 +23,9 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+import cs2130.trojanhorses.e_receipt.database.ReceiptDbSchema;
+import cs2130.trojanhorses.e_receipt.database.ReceiptHelper;
+
 /**
  * Created by Aleix on 10/21/2017.
  */
@@ -30,6 +36,8 @@ public class ReceiptLab {
     private List<Receipt> mReceipts;
     private static Callbackable mCb;
     private Receipt mReceipt;
+    private Context mContext;
+    private SQLiteDatabase mDatabase;
 
     private final String AUTHORITY = "137.149.157.18";
     private final String PATH = "CS2130/e-receipt/";//?date=20171004";
@@ -38,11 +46,19 @@ public class ReceiptLab {
     //private final String QUERY_PARAM = "20171021";
     private String queryParam = "201710";
 
-    private ReceiptLab(Context context) {
-        Log.d("TAG", "receipt lab executed");
+    private ReceiptLab(Context context){
+        mContext = context;
+        mDatabase = new ReceiptHelper(mContext)
+                .getWritableDatabase();
+    }
+
+
+    /**Commented out in case database fails */
+    /*private ReceiptLab(Context context) {
+        //Log.d("TAG", "receipt lab executed");
         mReceipts = new ArrayList<>();
         run();
-    }
+    }*/
 
     public static ReceiptLab get(Context context, Callbackable cb) {
         if (cb != null){
@@ -59,15 +75,48 @@ public class ReceiptLab {
         return mReceipts;
     }
 
-    public Receipt getReceipt(UUID id) {
+    public Receipt getReceipt(UUID id){
+        return null;
+    }
+
+    private Cursor queryReceipts(String whereClause, String[] whereArgs){
+        Cursor cursor = mDatabase.query(
+                ReceiptDbSchema.ReceiptTable.NAME,
+                null,
+                whereClause,
+                whereArgs,
+                null,
+                null,
+                null
+        );
+
+        return cursor;
+    }
+
+    public void addReceipt(Receipt receipt){
+        ContentValues values = getContentValues(receipt);
+        mDatabase.insert(ReceiptDbSchema.ReceiptTable.NAME, null, values);
+    }
+
+    public void updateReceipt(Receipt receipt){
+        String uuidString = receipt.getId().toString();
+        ContentValues values = getContentValues(receipt);
+        mDatabase.update(ReceiptDbSchema.ReceiptTable.NAME, values,
+                ReceiptDbSchema.ReceiptTable.Cols.UUID + " = ?",
+                new String [] { uuidString});
+    }
+
+    /**Commented out in case database fails  */
+    /*public Receipt getReceipt(UUID id) {
         for (Receipt receipt: mReceipts) {
             if (receipt.getId().equals(id)) {
                 return receipt;
             }
         }
         return null;
-    }
+    }*/
 
+    /**Commented out in case database fails  */
     public void add(Receipt receipt) {
         mReceipts.add(receipt);
     }
@@ -98,6 +147,16 @@ public class ReceiptLab {
             }
             new eReceiptQuery(mCb).execute(buildURL());
         }
+    }
+
+    private static ContentValues getContentValues(Receipt receipt){
+        ContentValues values = new ContentValues();
+        values.put(ReceiptDbSchema.ReceiptTable.Cols.UUID, receipt.getId().toString());
+        values.put(ReceiptDbSchema.ReceiptTable.Cols.DATE, receipt.getDate().toString());
+        values.put(ReceiptDbSchema.ReceiptTable.Cols.STORE, receipt.getStore());
+        values.put(ReceiptDbSchema.ReceiptTable.Cols.ITEM, receipt.getItems().toString());
+
+        return values;
     }
 
     private Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
@@ -166,6 +225,7 @@ public class ReceiptLab {
             return resultString;
         }
 
+        /**Code will not work for now because .add doesn't work */
         @Override
         protected void onPostExecute(String resultString) {
             JSONObject jsonObject;
