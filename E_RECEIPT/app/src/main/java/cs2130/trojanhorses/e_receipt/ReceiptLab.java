@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,6 +49,7 @@ public class ReceiptLab {
         mContext = context;
         mDatabase = new ReceiptHelper(mContext)
                 .getWritableDatabase();
+        mReceipts = new ArrayList<>();
     }
 
 
@@ -154,7 +154,7 @@ public class ReceiptLab {
         values.put(ReceiptDbSchema.ReceiptTable.Cols.UUID, receipt.getId().toString());
         values.put(ReceiptDbSchema.ReceiptTable.Cols.DATE, receipt.getDate().toString());
         values.put(ReceiptDbSchema.ReceiptTable.Cols.STORE, receipt.getStore());
-        values.put(ReceiptDbSchema.ReceiptTable.Cols.ITEM, receipt.getItems().toString());
+        values.put(ReceiptDbSchema.ReceiptTable.Cols.ITEMS, receipt.getItems().toString());
 
         return values;
     }

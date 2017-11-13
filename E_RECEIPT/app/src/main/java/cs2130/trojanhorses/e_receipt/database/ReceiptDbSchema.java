@@ -12,7 +12,7 @@ public class ReceiptDbSchema {
             public static final String UUID = "uuid";
             public static final String STORE = "store";
             public static final String DATE = "date";
-            public static final String ITEM = "item";
+            public static final String ITEMS = "items";
         }
 
     }

@@ -23,7 +23,7 @@ public class ReceiptHelper extends SQLiteOpenHelper{
             ReceiptDbSchema.ReceiptTable.Cols.UUID + ", " +
             ReceiptDbSchema.ReceiptTable.Cols.STORE + ", " +
             ReceiptDbSchema.ReceiptTable.Cols.DATE + ", " +
-            ReceiptDbSchema.ReceiptTable.Cols.ITEM +
+            ReceiptDbSchema.ReceiptTable.Cols.ITEMS +
             ")"
         );
     }

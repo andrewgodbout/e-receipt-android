@@ -22,7 +22,7 @@ public class Receipt {
     }
 
 
-    public Receipt() {
+    public Receipt(UUID id) {
         mId = UUID.randomUUID();
     } /** I don't think that we should create empty Receipts */
 
@@ -48,6 +48,11 @@ public class Receipt {
 
     public Item[] getItems() {
         return mItems;
+    }
+
+    /** Receive a JSONObject to parse and create an Item */
+    public void setItems(String items) {
+
     }
 
     public String getTotal() {
