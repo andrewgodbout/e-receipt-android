@@ -51,7 +51,7 @@ public class Receipt {
     }
 
     /** Receive a JSONObject to parse and create an Item */
-    public void setItems(String items) {
+    public void setItems(Item[] items) {
 
     }
 
