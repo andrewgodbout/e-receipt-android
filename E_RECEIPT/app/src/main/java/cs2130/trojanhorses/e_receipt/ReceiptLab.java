@@ -50,6 +50,7 @@ public class ReceiptLab {
         mDatabase = new ReceiptHelper(mContext)
                 .getWritableDatabase();
         mReceipts = new ArrayList<>();
+        run();
     }
 
 
