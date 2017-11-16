@@ -59,6 +59,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
             mReceiptAdapter = new ReceiptAdapter(receipts);
             mRecyclerView.setAdapter(mReceiptAdapter);
         } else {
+            mReceiptAdapter.setReceipts(receipts);
             mReceiptAdapter.notifyDataSetChanged();
         }
         Log.d("TAG","update recycler view finished executing");
@@ -132,6 +133,10 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         @Override
         public int getItemCount() {
             return mReceipts.size();
+        }
+
+        public void setReceipts(List<Receipt> receipts){
+            mReceipts = receipts;
         }
     }
 }
