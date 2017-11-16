@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
 
+import cs2130.trojanhorses.e_receipt.database.ReceiptCursorWrapper;
 import cs2130.trojanhorses.e_receipt.database.ReceiptDbSchema;
 import cs2130.trojanhorses.e_receipt.database.ReceiptHelper;
 
@@ -72,12 +73,42 @@ public class ReceiptLab {
         return sReceiptLab;
     }
 
-    public List<Receipt> getReceipts() {
+    /**Commented out in case database fails */
+    /*public List<Receipt> getReceipts() {
         return mReceipts;
+    } //this should be highlighted out once database works*/
+
+    public List<Receipt> getReceipts(){
+        List<Receipt> receipts = new ArrayList<>();
+        ReceiptCursorWrapper cursor = (ReceiptCursorWrapper) queryReceipts(null, null);
+
+        try {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                receipts.add(cursor.getReceipt());
+                cursor.moveToNext();
+            }
+        } finally {
+                cursor.close();
+            }
+        return receipts;
     }
 
     public Receipt getReceipt(UUID id){
-        return null;
+        ReceiptCursorWrapper cursor = (ReceiptCursorWrapper) queryReceipts(
+                ReceiptDbSchema.ReceiptTable.Cols.UUID + " = ?",
+                new String[] { id.toString() }
+        );
+        try{
+            if(cursor.getCount() == 0){
+                return null;
+            }
+
+            cursor.moveToFirst();
+            return cursor.getReceipt();
+        } finally{
+            cursor.close();
+        }
     }
 
     private Cursor queryReceipts(String whereClause, String[] whereArgs){
