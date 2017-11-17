@@ -111,7 +111,7 @@ public class ReceiptLab {
         }
     }
 
-    private Cursor queryReceipts(String whereClause, String[] whereArgs){
+    private ReceiptCursorWrapper queryReceipts(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
                 ReceiptDbSchema.ReceiptTable.NAME,
                 null,
@@ -122,7 +122,8 @@ public class ReceiptLab {
                 null
         );
 
-        return cursor;
+        //return cursor;
+        return new ReceiptCursorWrapper(cursor);
     }
 
     public void addReceipt(Receipt receipt){

@@ -29,7 +29,6 @@ public class ReceiptCursorWrapper extends CursorWrapper {
         String json = getString(getColumnIndex(ReceiptDbSchema.ReceiptTable.Cols.ITEMS));
 
 
-
         Receipt receipt = new Receipt(UUID.fromString(uuidString));
         receipt.setStore(store);
         receipt.setDate(date);
