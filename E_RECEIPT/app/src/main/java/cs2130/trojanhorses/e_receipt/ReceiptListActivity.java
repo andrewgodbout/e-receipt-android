@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,9 +60,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
             mReceiptAdapter.setReceipts(receipts);
             mReceiptAdapter.notifyDataSetChanged();
         }
-        Log.d("TAG","update recycler view finished executing");
     }
-
 
     /*private void updateUI(){
         URL url = buildURL();

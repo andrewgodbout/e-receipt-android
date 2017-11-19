@@ -29,4 +29,9 @@ public class Item {
     public void setItemPrice(double itemPrice) {
         this.mItemPrice = itemPrice;
     }
+
+    @Override
+    public String toString() {
+        return mItemName+": $"+mItemPrice;
+    }
 }

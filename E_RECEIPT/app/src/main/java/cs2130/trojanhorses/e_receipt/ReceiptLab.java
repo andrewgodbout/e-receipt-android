@@ -128,10 +128,8 @@ public class ReceiptLab {
     }
 
     public void addReceipt(Receipt receipt){
-        Log.d("TAG", "1st AddReceipt");
         ContentValues values = getContentValues(receipt);
         mDatabase.insert(ReceiptDbSchema.ReceiptTable.NAME, null, values);
-        Log.d("TAG", "AddReceipt");
     }
 
     public void updateReceipt(Receipt receipt){
@@ -198,7 +196,6 @@ public class ReceiptLab {
     }
 
     private Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
-
         String date_purchased = jsonObject.getString("date");
         JSONArray items_list = jsonObject.getJSONArray("items");
         String store_name = jsonObject.getString("store");
@@ -209,7 +206,7 @@ public class ReceiptLab {
             JSONArray item = items_list.getJSONArray(i);
             items[i] = new Item ((String) item.get(0), (double)item.get(1));
         }
-
+        Log.d("TAG", items[0].getItemName());
         Receipt receipt = new Receipt(date_purchased, store_name, items);
 
         /*JSONArray jsArr = jsonObject.getJSONArray("details");
@@ -271,10 +268,11 @@ public class ReceiptLab {
                 JSONArray jsonArray = new JSONArray(resultString);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     jsonObject = jsonArray.getJSONObject(i);
+                    Log.d("TAG", "Before");
                     mReceipt = parseReceipt(jsonObject);
-                    //parseReceipt(jsonObject);
+                    Log.d("TAG", "After");
+
                     addReceipt(mReceipt);
-                    Log.d("TAG", mReceipt.getStore());
                 }
                 listener.update();
 
