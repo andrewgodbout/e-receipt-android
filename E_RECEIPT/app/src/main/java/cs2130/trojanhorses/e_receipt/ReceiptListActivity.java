@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -23,13 +26,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
 
-    //private boolean mLoading;
-    //private boolean mDataLoaded;
-
     public void update() {updateRecyclerView();}
-
-
-    //private final String URL = "http://137.149.157.18/CS2130/e-receipt/?date=20171001";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -43,6 +40,24 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
 
         loadData();
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_receipt_list, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.new_Receipt:
+                //updateUI();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public static Intent newIntent(Context packageContext){

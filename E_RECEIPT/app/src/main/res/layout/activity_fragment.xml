@@ -6,56 +6,56 @@
               android:layout_margin="16dp">
 
 
-<TableLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-    <TableRow>
+        <TableRow>
 
-        <Button
-            android:id="@+id/show_receipts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/show_receipt_button"
-            android:onClick="onClickShowReceiptsButton"/>
+            <Button
+                android:id="@+id/show_receipts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickShowReceiptsButton"
+                android:text="@string/show_receipt_button"/>
 
-        <Button
-            android:id="@+id/check_budget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="44dp"
-            android:onClick="onClickCheckBudgetButton"
-            android:text="@string/check_budget_button"/>
+            <Button
+                android:id="@+id/check_budget"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="44dp"
+                android:onClick="onClickCheckBudgetButton"
+                android:text="@string/check_budget_button"/>
 
-    </TableRow>
+        </TableRow>
 
-    <TableRow>
+        <TableRow>
 
-        <Button
-            android:id="@+id/load_receipts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onClickLoadReceiptsButton"
-            android:text="@string/load_receipt_button"/>
+            <Button
+                android:id="@+id/load_receipts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:onClick="onClickLoadReceiptsButton"
+                android:text="@string/load_receipt_button"/>
 
-        <Button
-            android:id="@+id/add_receipts"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:onClick="onClickAddReceiptsButton"
-            android:layout_margin="44dp"
-            android:text="@string/add_new_receipts_button"/>
-
-
-    </TableRow>
+            <Button
+                android:id="@+id/add_receipts"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="44dp"
+                android:onClick="onClickAddReceiptsButton"
+                android:text="@string/add_new_receipts_button"/>
 
 
-</TableLayout>
+        </TableRow>
+
+
+    </TableLayout>
 
 
 </LinearLayout>

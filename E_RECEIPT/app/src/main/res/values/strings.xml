@@ -8,4 +8,5 @@
     <string name="load_receipt_button">Loads Receipts</string>
     <string name="add_new_receipts_button">Add a receipt</string>
     <string name="clicked_toast">Clicked!</string>
+    <string name="new_receipt">New Receipt</string>
 </resources>
