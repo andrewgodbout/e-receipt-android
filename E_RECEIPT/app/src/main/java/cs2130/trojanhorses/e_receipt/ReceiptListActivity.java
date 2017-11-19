@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -96,7 +95,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         public void bind (Receipt receipt){
             mReceipt = receipt;
             mDate.setText("Date Purchased: "+mReceipt.getDate());
-            mPrice.setText(mReceipt.getTotal());
+            mPrice.setText(/*mReceipt.getTotal()*/"99");
             mStore.setText("Store: "+mReceipt.getStore());
         }
 

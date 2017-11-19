@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -127,16 +128,20 @@ public class ReceiptLab {
     }
 
     public void addReceipt(Receipt receipt){
+        Log.d("TAG", "1st AddReceipt");
         ContentValues values = getContentValues(receipt);
         mDatabase.insert(ReceiptDbSchema.ReceiptTable.NAME, null, values);
+        Log.d("TAG", "AddReceipt");
     }
 
     public void updateReceipt(Receipt receipt){
-        String uuidString = receipt.getId().toString();
+
         ContentValues values = getContentValues(receipt);
+
+        String uuidString = receipt.getId().toString();
         mDatabase.update(ReceiptDbSchema.ReceiptTable.NAME, values,
                 ReceiptDbSchema.ReceiptTable.Cols.UUID + " = ?",
-                new String [] { uuidString});
+                new String [] { receipt.getId().toString()});
     }
 
     /**Commented out in case database fails  */
@@ -205,7 +210,6 @@ public class ReceiptLab {
             items[i] = new Item ((String) item.get(0), (double)item.get(1));
         }
 
-
         Receipt receipt = new Receipt(date_purchased, store_name, items);
 
         /*JSONArray jsArr = jsonObject.getJSONArray("details");
@@ -269,7 +273,8 @@ public class ReceiptLab {
                     jsonObject = jsonArray.getJSONObject(i);
                     mReceipt = parseReceipt(jsonObject);
                     //parseReceipt(jsonObject);
-                    add(mReceipt);
+                    addReceipt(mReceipt);
+                    Log.d("TAG", mReceipt.getStore());
                 }
                 listener.update();
 

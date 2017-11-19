@@ -1,5 +1,7 @@
 package cs2130.trojanhorses.e_receipt;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 import java.util.UUID;
 
@@ -56,14 +58,24 @@ public class Receipt {
     }
 
     public String getTotal() {
+        Log.d("TAG2", mItems.toString());
         DecimalFormat df = new DecimalFormat("#.00");
         double total = 0;
         for (Item i: mItems) {
-            total += i.getItemPrice();
+            total += splitPrice(i.toString());
         }
         return "$"+df.format(total);
     }
 
+    public int splitPrice(String item) {
+        String[] arrSplit = item.split("\",");
+        return Integer.parseInt(arrSplit[1].substring(0,arrSplit[1].length()-2));
+    }
+
+    public String splitName(String item) {
+        String[] arrSplit = item.split("\",");
+        return (arrSplit[1].substring(3,arrSplit[1].length()));
+    }
     /** You don't need to add Items to a receipt, it comes with items already. */
     /*public void addItems(String items) {
         mItems.add(items);
