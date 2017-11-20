@@ -47,25 +47,17 @@ public class ReceiptCursorWrapper extends CursorWrapper {
     public Item[] parseItems(String json) throws JSONException {
 
         JSONArray items_list = new JSONArray(json);
-
-
-        String newJson = items_list.getString(0);
-
+        /*String newJson = items_list.getString(0);
         //String[] item= new String[items_list.length()];
-        //String[] price= new String[items_list.length()];
-
-
-
+        //String[] price= new String[items_list.length()];*/
 
         Item[] items = new Item[items_list.length()];
 
         for (int i = 0; i < items_list.length(); i++) {
             String[] item = items_list.get(i).toString().split(":");
-            //Log.d("DEBUG", item[1].substring(2));
             items[i] = new Item(item[0],
                     parseDouble(item[1].substring(2)));
         }
-        //Log.d("TAG", items.toString());
         return items;
     }
 
