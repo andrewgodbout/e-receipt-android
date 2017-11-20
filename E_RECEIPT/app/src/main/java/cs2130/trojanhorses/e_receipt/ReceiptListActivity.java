@@ -17,7 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 /**
- * Created by Aleix on 10/20/2017.
+ * Created by David on 10/20/2017.
  */
 
 public class ReceiptListActivity extends AppCompatActivity implements Callbackable {
@@ -54,7 +54,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.new_Receipt:
-                //updateUI();
+
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -76,11 +76,6 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
             mReceiptAdapter.notifyDataSetChanged();
         }
     }
-
-    /*private void updateUI(){
-        URL url = buildURL();
-        new eReceiptQuery().execute(url);
-    }*/
 
     private void loadData() {
         mReceiptLab = ReceiptLab.get(ReceiptListActivity.this, this); //start asynctask
@@ -107,7 +102,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         public void bind (Receipt receipt){
             mReceipt = receipt;
             mDate.setText("Date Purchased: "+mReceipt.getDate());
-            mPrice.setText(/*mReceipt.getTotal()*/"99");
+            mPrice.setText(mReceipt.getTotal());
             mStore.setText("Store: "+mReceipt.getStore());
         }
 
@@ -115,8 +110,6 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         public void onClick(View view) {
             Intent intent = ReceiptActivity.dataInstance(ReceiptListActivity.this, mReceipt);
             startActivity(intent);
-            /*int clicked = R.string.clicked_toast;
-            Toast.makeText(ReceiptListActivity.this, clicked, Toast.LENGTH_SHORT).show();*/
         }
     }
 

@@ -1,5 +1,7 @@
 package cs2130.trojanhorses.e_receipt;
 
+import android.util.Log;
+
 import java.text.DecimalFormat;
 import java.util.UUID;
 
@@ -21,8 +23,7 @@ public class Receipt {
         mId = UUID.randomUUID();
     }
 
-
-    public Receipt(UUID id) {
+    /*public Receipt(UUID id) {
         mId = UUID.randomUUID();
     } /** I don't think that we should create empty Receipts */
 
@@ -65,9 +66,10 @@ public class Receipt {
         return "$"+df.format(total);
     }
 
-    public int splitPrice(String item) {
+    public Double splitPrice(String item) {
+        //Log.d("MAN",item);
         String[] arrSplit = item.split(":");
-        return Integer.parseInt(arrSplit[1].substring(1,arrSplit[1].length()-1));
+        return Double.parseDouble(arrSplit[1].substring(2,arrSplit[1].length()-1));
     }
 
     public String splitName(String item) {

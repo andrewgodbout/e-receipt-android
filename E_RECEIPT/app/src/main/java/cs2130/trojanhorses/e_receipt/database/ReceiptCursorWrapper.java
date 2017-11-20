@@ -2,6 +2,7 @@ package cs2130.trojanhorses.e_receipt.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,6 +12,8 @@ import java.util.UUID;
 
 import cs2130.trojanhorses.e_receipt.Item;
 import cs2130.trojanhorses.e_receipt.Receipt;
+
+import static java.lang.Double.parseDouble;
 
 /**
  * Created by davidadams on 2017-11-12.
@@ -43,16 +46,28 @@ public class ReceiptCursorWrapper extends CursorWrapper {
 
     public Item[] parseItems(String json) throws JSONException {
 
-        JSONObject jsonObject = new JSONObject(json);
-        JSONArray items_list = jsonObject.getJSONArray("items");
+        JSONArray items_list = new JSONArray(json);
+
+
+        String newJson = items_list.getString(0);
+
+        //String[] item= new String[items_list.length()];
+        //String[] price= new String[items_list.length()];
+
+
+
 
         Item[] items = new Item[items_list.length()];
 
         for (int i = 0; i < items_list.length(); i++) {
-            JSONArray item = items_list.getJSONArray(i);
-            items[i] = new Item((String) item.get(0), (double) item.get(1));
+            String[] item = items_list.get(i).toString().split(":");
+            //Log.d("DEBUG", item[1].substring(2));
+            items[i] = new Item(item[0],
+                    parseDouble(item[1].substring(2)));
         }
-
+        //Log.d("TAG", items.toString());
         return items;
     }
+
+
 }

@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -129,6 +130,7 @@ public class ReceiptLab {
 
     public void addReceipt(Receipt receipt){
         ContentValues values = getContentValues(receipt);
+        Log.d("DEBUG", receipt.getStore());
         mDatabase.insert(ReceiptDbSchema.ReceiptTable.NAME, null, values);
     }
 
@@ -185,18 +187,28 @@ public class ReceiptLab {
         }
     }
 
-    private static ContentValues getContentValues(Receipt receipt){
+    private static ContentValues getContentValues(Receipt receipt) {
         ContentValues values = new ContentValues();
         values.put(ReceiptDbSchema.ReceiptTable.Cols.UUID, receipt.getId().toString());
         values.put(ReceiptDbSchema.ReceiptTable.Cols.DATE, receipt.getDate().toString());
         values.put(ReceiptDbSchema.ReceiptTable.Cols.STORE, receipt.getStore());
-        values.put(ReceiptDbSchema.ReceiptTable.Cols.ITEMS, receipt.getItems().toString());
+
+        JSONArray jsonArray = new JSONArray();
+        Item [] items = receipt.getItems();
+
+        for(int i = 0; i < items.length; i++)
+            jsonArray.put(items[i]);
+
+        //String myString = "{\"items\":[\"Keyboard, 0.99\"]}";
+        //Log.d("DEBUG", myString);
+        values.put(ReceiptDbSchema.ReceiptTable.Cols.ITEMS, jsonArray.toString());
 
         return values;
     }
 
     private Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
         String date_purchased = jsonObject.getString("date");
+        /**Call a parse date method over here*/
         JSONArray items_list = jsonObject.getJSONArray("items");
         String store_name = jsonObject.getString("store");
 
@@ -204,9 +216,9 @@ public class ReceiptLab {
 
         for (int i = 0; i < items_list.length(); i++) {
             JSONArray item = items_list.getJSONArray(i);
-            items[i] = new Item ((String) item.get(0), (double)item.get(1));
+            items[i] = new Item (item.getString(0), item.getDouble(1));
         }
-        Log.d("TAG", items[0].getItemName());
+        //Log.d("TAG", items[0].getItemName());
         Receipt receipt = new Receipt(date_purchased, store_name, items);
 
         /*JSONArray jsArr = jsonObject.getJSONArray("details");
@@ -256,21 +268,23 @@ public class ReceiptLab {
             }finally {
                 httpURLConnection.disconnect();
             }
+            Log.d("DEBUG", resultString);
             return resultString;
         }
 
         /**Code will not work for now because .add doesn't work */
         @Override
         protected void onPostExecute(String resultString) {
+            Log.d("DEBUG", resultString);
             JSONObject jsonObject;
 
             try {
                 JSONArray jsonArray = new JSONArray(resultString);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     jsonObject = jsonArray.getJSONObject(i);
-                    Log.d("TAG", "Before");
+                    //Log.d("TAG", "Before");
                     mReceipt = parseReceipt(jsonObject);
-                    Log.d("TAG", "After");
+                    //Log.d("TAG", "After");
 
                     addReceipt(mReceipt);
                 }
