@@ -88,11 +88,11 @@ public class ReceiptActivity extends AppCompatActivity {
 
         TextView textViewStoreName = (TextView) findViewById(R.id.textview_store_name);
         TextView textViewDate = (TextView) findViewById(R.id.textview_date);
-        TextView textViewDetails = (TextView) findViewById (R.id.textview_details);
+        //TextView textViewDetails = (TextView) findViewById (R.id.textview_details);
 
         textViewStoreName.setText(name);
         textViewDate.setText(date);
-        textViewDetails.setText(convertArray(data));
+        //textViewDetails.setText(convertArray(data));
     }
 
     public String convertArray (Item [] data){

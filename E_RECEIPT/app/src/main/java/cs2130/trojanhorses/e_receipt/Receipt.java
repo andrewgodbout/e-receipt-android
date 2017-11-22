@@ -86,10 +86,6 @@ public class Receipt implements Serializable{
         String[] arrSplit = item.split(":");
         return (arrSplit[0]);
     }
-    /** You don't need to add Items to a receipt, it comes with items already. */
-    /*public void addItems(String items) {
-        mItems.add(items);
-    }*/
 
     public String itemToString() {
         String res="";
