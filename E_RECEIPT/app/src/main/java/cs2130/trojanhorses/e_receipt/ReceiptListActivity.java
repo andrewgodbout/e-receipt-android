@@ -115,6 +115,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
             //Intent i = new Intent(ReceiptListActivity.this, ReceiptActivity.class).putExtra("receipt", mReceipt);
             Log.d("TQG", mReceipt.getStore());
             Intent intent = ReceiptActivity.dataInstance(ReceiptListActivity.this, mReceipt);
+            //intent.putExtra("ITEM", mReceipt.getItems());
             startActivity(intent);
         }
     }

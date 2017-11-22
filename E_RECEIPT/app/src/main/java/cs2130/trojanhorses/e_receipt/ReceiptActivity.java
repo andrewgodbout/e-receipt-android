@@ -41,7 +41,7 @@ public class ReceiptActivity extends AppCompatActivity {
     private static final String DATE = "date";
     private static final String STORE = "store";
     private static final String RECEIPT_ID = "receipt_id";
-    private Receipt mReceipt;
+    private static Receipt mReceipt;
     private static final String ARG_RECEIPT_ID = "receipt_id";
 
     @Override
@@ -50,23 +50,17 @@ public class ReceiptActivity extends AppCompatActivity {
         setContentView(R.layout.activity_receipt);
         Intent intent = getIntent();
 
-        //Receipt rcp = (Receipt)intent.getSerializableExtra("receipt");
-
-        //String store = rcp.getStore();
-        //String date = rcp.getDate();
-        //Item[] items = rcp.getItems();
-
         String storeName = intent.getStringExtra(STORE);
         String date = intent.getStringExtra(DATE);
 
-         //Item[] items = intent.getParcelableArrayExtra(ITEM);
-        Item item = intent.getParcelableExtra("ITEM");
-        Item[] items = new Item[1];
-        items[0] = item;
-        //String []items = new String[]{"Hello"};
+        ArrayList<Item> item = intent.getParcelableArrayListExtra(ITEM);
 
-        UUID receiptID = (UUID) intent.getSerializableExtra(RECEIPT_ID);//getStringExtra(RECEIPT_ID);
-        //UUID receiptID = UUID.fromString(receiptId);
+        Item[] items = new Item[item.size()];
+        for ( int i = 0; i<item.size(); i++) {
+            items[i] = item.get(i);
+        }
+
+        UUID receiptID = (UUID) intent.getSerializableExtra(RECEIPT_ID);
 
 
         mReceipt = ReceiptLab.get(ReceiptActivity.this, null, false).getReceipt(receiptID);
@@ -80,23 +74,14 @@ public class ReceiptActivity extends AppCompatActivity {
 
         String store = receipt.getStore();
         String date = receipt.getDate();
-        Item [] data = receipt.getItems();
         UUID id = receipt.getId();
 
         intent.putExtra(STORE, store);
         intent.putExtra(DATE, date);
         intent.putExtra(RECEIPT_ID, id);
-        intent.putExtra(ITEM, data[0]);
+        intent.putExtra(ITEM, new ArrayList<Item>(receipt.convertToArrayList()));
 
         return intent;
-    }
-
-
-    public static ReceiptActivity newInstance(UUID receiptId ){
-        Bundle args = new Bundle();
-        args.putSerializable(ARG_RECEIPT_ID, receiptId);
-        ReceiptActivity activity = new ReceiptActivity();
-        return activity;
     }
 
     public void populateTextViews(String name, String date, Item [] data) {
@@ -108,23 +93,11 @@ public class ReceiptActivity extends AppCompatActivity {
         textViewStoreName.setText(name);
         textViewDate.setText(date);
         textViewDetails.setText(convertArray(data));
-        //textViewDetails.setText("Hello");
-
-        //use an adapter to populate single textviews as needed
-        /*ArrayAdapter adapter = new ArrayAdapter<String>(this,R.layout.data_textview, data);
-        ListView listView = (ListView) findViewById(R.id.listview);
-        listView.setAdapter(adapter);*/
     }
 
     public String convertArray (Item [] data){
 
         StringBuilder sb = new StringBuilder();
-
-        /* for now a \n delimited list of details is fine
-        for(Item items: data) {
-            sb.append(items);
-            sb.append("\n");
-        }*/
 
         String details = sb.toString();
 

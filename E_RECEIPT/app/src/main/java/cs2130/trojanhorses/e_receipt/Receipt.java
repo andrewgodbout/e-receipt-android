@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -50,6 +51,14 @@ public class Receipt implements Serializable{
 
     public Item[] getItems() {
         return mItems;
+    }
+
+    public ArrayList<Item> convertToArrayList() {
+        ArrayList<Item> arrayList = new ArrayList<>();
+        for (Item i : mItems) {
+            arrayList.add(i);
+        }
+        return arrayList;
     }
 
     /** Receive a JSONObject to parse and create an Item */
