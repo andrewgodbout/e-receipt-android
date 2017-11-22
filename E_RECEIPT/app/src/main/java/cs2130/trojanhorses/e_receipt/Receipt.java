@@ -1,7 +1,5 @@
 package cs2130.trojanhorses.e_receipt;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -77,7 +75,6 @@ public class Receipt implements Serializable{
     }
 
     public Double splitPrice(String item) {
-        //Log.d("MAN",item);
         String[] arrSplit = item.split(":");
         return Double.parseDouble(arrSplit[1].substring(2,arrSplit[1].length()-1));
     }

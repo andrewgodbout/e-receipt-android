@@ -3,14 +3,10 @@ package cs2130.trojanhorses.e_receipt;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -88,20 +84,49 @@ public class ReceiptActivity extends AppCompatActivity {
 
         TextView textViewStoreName = (TextView) findViewById(R.id.textview_store_name);
         TextView textViewDate = (TextView) findViewById(R.id.textview_date);
-        //TextView textViewDetails = (TextView) findViewById (R.id.textview_details);
+        TextView textViewDetails = (TextView) findViewById (R.id.items_details);
+        TextView textViewTotalPrice = (TextView) findViewById (R.id.receipt_price);
 
         textViewStoreName.setText(name);
         textViewDate.setText(date);
-        //textViewDetails.setText(convertArray(data));
+        textViewDetails.setText(convertArray(data));
+        textViewTotalPrice.setText(getTotal(data));
     }
 
     public String convertArray (Item [] data){
-
         StringBuilder sb = new StringBuilder();
-
+        sb.append("\n\n");
+        for (int i=0 ; i<data.length; i++) {
+            sb.append((i+1)+" "+data[i].getItemName().substring(0,1).toUpperCase()+ // 1st letter of ItemName to UpperCase
+                    data[i].getItemName().trim().substring(1)+ // Rest of ItemName
+                    tabPrice(data[i].getItemName().trim().length(), String.valueOf(data[i].getItemPrice()))+ // Tab prices
+                    data[i].getItemPrice()+"$\n"); // Print Price
+        }
         String details = sb.toString();
 
         return details;
+    }
+
+    public String tabPrice(int length, String priceLength) {
+        int baseSpaces = 48;
+        baseSpaces -= length;
+        baseSpaces -= 2*priceLength.length();
+        String spaces="";
+        for (int i=0; i<baseSpaces; i++) {
+            if (i%2 == 0)
+                spaces +="\t";
+            spaces +=" ";
+        }
+        return spaces;
+    }
+
+    public String getTotal(Item[] data) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        double total=0;
+        for (Item i: data) {
+            total += i.getItemPrice();
+        }
+        return df.format(total)+"$";
     }
 
 }

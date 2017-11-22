@@ -3,6 +3,7 @@
     <string name="store_name">Store Name</string>
     <string name="receipt_date">Receipt Date</string>
     <string name="total_price">Total Price</string>
+    <string name="total_price_two">Total Price:</string>
     <string name="show_receipt_button">Show Receipts</string>
     <string name="check_budget_button">Check Budget</string>
     <string name="load_receipt_button">Loads Receipts</string>
