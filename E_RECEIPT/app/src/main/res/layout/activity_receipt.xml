@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
 
     <TextView
         android:id="@+id/textview_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"/>
+        android:text="@string/receipt_date"/>
 
     <TextView
         android:id="@+id/textview_store_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"/>
+        android:text="@string/store_name"/>
+
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textview_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isScrollContainer="true"
+                android:text="@string/items"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="20sp"/>
+
+        </ScrollView>
+
+
 </LinearLayout>

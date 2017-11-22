@@ -2,6 +2,7 @@ package cs2130.trojanhorses.e_receipt;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.UUID;
 
@@ -9,7 +10,7 @@ import java.util.UUID;
  * Created by Aleix on 10/20/2017.
  */
 
-public class Receipt {
+public class Receipt implements Serializable{
 
     private UUID mId;
     private String mDate;

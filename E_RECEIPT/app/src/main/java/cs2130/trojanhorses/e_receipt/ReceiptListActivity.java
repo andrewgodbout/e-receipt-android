@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -25,6 +27,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     private ReceiptLab mReceiptLab;
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
+    private boolean mLoading;
 
     public void update() {updateRecyclerView();}
 
@@ -34,6 +37,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         setContentView(R.layout.activity_receipt_list);
 
         Intent intent = getIntent();
+        mLoading = intent.getBooleanExtra("load", true);
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -78,7 +82,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     }
 
     private void loadData() {
-        mReceiptLab = ReceiptLab.get(ReceiptListActivity.this, this); //start asynctask
+        mReceiptLab = ReceiptLab.get(ReceiptListActivity.this, this, mLoading); //start asynctask
         updateRecyclerView();
     }
 
@@ -101,13 +105,15 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
 
         public void bind (Receipt receipt){
             mReceipt = receipt;
-            mDate.setText("Date Purchased: "+mReceipt.getDate());
+            mDate.setText("Date Purchased: "+receipt.getDate());
             mPrice.setText(mReceipt.getTotal());
-            mStore.setText("Store: "+mReceipt.getStore());
+            mStore.setText("Store: "+receipt.getStore());
         }
 
         @Override
         public void onClick(View view) {
+            //Intent i = new Intent(ReceiptListActivity.this, ReceiptActivity.class).putExtra("receipt", mReceipt);
+            Log.d("TQG", mReceipt.getStore());
             Intent intent = ReceiptActivity.dataInstance(ReceiptListActivity.this, mReceipt);
             startActivity(intent);
         }

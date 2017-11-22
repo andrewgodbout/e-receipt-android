@@ -1,23 +1,10 @@
 package cs2130.trojanhorses.e_receipt;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Scanner;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -39,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickShowReceiptsButton(View view){
+        mLoading = false;
         //Intent intent = ReceiptListActivity.newIntent(MainActivity.this);
         Intent intent = new Intent (this, ReceiptListActivity.class);
+        intent.putExtra("load", mLoading);
         startActivity(intent);
     }
 
@@ -48,9 +37,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*public void onClickLoadReceiptsButton(View view){
-        new eReceiptQuery().execute(mURL);
-    }*/
+    public void onClickLoadReceiptsButton(View view){
+        mLoading=true;
+        Intent intent = new Intent (this, ReceiptListActivity.class);
+        intent.putExtra("load", mLoading);
+        startActivity(intent);
+    }
 
     public void onClickAddReceiptsButton(View view){
 

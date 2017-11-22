@@ -48,12 +48,15 @@ public class ReceiptLab {
     //private final String QUERY_PARAM = "20171021";
     private String queryParam = "201710";
 
-    private ReceiptLab(Context context){
+    private ReceiptLab(Context context, boolean load){
         mContext = context;
         mDatabase = new ReceiptHelper(mContext)
                 .getWritableDatabase();
-        mReceipts = new ArrayList<>();
-        run();
+
+        if (load) {
+            mReceipts = new ArrayList<>();
+            run();
+        }
     }
 
 
@@ -64,13 +67,13 @@ public class ReceiptLab {
         run();
     }*/
 
-    public static ReceiptLab get(Context context, Callbackable cb) {
+    public static ReceiptLab get(Context context, Callbackable cb, boolean load) {
         if (cb != null){
             mCb = cb;
             sReceiptLab = null;
         }
         if (sReceiptLab == null) {
-            sReceiptLab = new ReceiptLab(context);
+            sReceiptLab = new ReceiptLab(context, load);
         }
         return sReceiptLab;
     }
@@ -130,7 +133,7 @@ public class ReceiptLab {
 
     public void addReceipt(Receipt receipt){
         ContentValues values = getContentValues(receipt);
-        Log.d("DEBUG", receipt.getStore());
+        //Log.d("DEBUG", receipt.getStore());
         mDatabase.insert(ReceiptDbSchema.ReceiptTable.NAME, null, values);
     }
 
@@ -268,14 +271,14 @@ public class ReceiptLab {
             }finally {
                 httpURLConnection.disconnect();
             }
-            Log.d("DEBUG", resultString);
+            //Log.d("DEBUG", resultString);
             return resultString;
         }
 
         /**Code will not work for now because .add doesn't work */
         @Override
         protected void onPostExecute(String resultString) {
-            Log.d("DEBUG", resultString);
+            //Log.d("DEBUG", resultString);
             JSONObject jsonObject;
 
             try {

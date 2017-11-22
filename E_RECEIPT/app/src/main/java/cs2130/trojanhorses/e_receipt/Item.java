@@ -1,10 +1,13 @@
 package cs2130.trojanhorses.e_receipt;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Aleix on 11/1/2017.
  */
 
-public class Item {
+public class Item implements Parcelable{
 
     private String mItemName;
     private double mItemPrice;
@@ -13,6 +16,23 @@ public class Item {
         mItemName = itemName;
         mItemPrice = itemPrice;
     }
+
+    protected Item(Parcel in) {
+        mItemName = in.readString();
+        mItemPrice = in.readDouble();
+    }
+
+    public static final Creator<Item> CREATOR = new Creator<Item>() {
+        @Override
+        public Item createFromParcel(Parcel in) {
+            return new Item(in);
+        }
+
+        @Override
+        public Item[] newArray(int size) {
+            return new Item[size];
+        }
+    };
 
     public String getItemName() {
         return mItemName;
@@ -33,5 +53,16 @@ public class Item {
     @Override
     public String toString() {
         return mItemName+": $"+mItemPrice;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(mItemName);
+        parcel.writeDouble(mItemPrice);
     }
 }
