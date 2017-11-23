@@ -71,7 +71,8 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
-            android:text="N/A"/>
+            android:text="N/A"
+            android:layout_marginRight="20dp"/>
     </LinearLayout>
 
 </LinearLayout>
