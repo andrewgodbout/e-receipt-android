@@ -65,7 +65,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         XAxis xAxis = mBarChart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setValueFormatter(formatter);*/
-
         //BarData data = new BarData(mDataSet);
         mBarChart.setData(mData);
         mBarChart.invalidate();
