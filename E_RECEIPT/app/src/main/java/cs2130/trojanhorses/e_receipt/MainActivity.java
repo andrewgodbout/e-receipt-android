@@ -34,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickCheckBudgetButton(View view){
+        Intent intent = new Intent(this, GraphActivity.class);
+        startActivity(intent);
 
     }
 
