@@ -1,20 +1,15 @@
 package cs2130.trojanhorses.e_receipt;
 
-import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.LimitLine;
-import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
@@ -27,12 +22,22 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
     private BarDataSet mDataSet;
     private BarData mData;
 
+    private final String DATABASE_NAME = "receiptList.db";
+
+    // Todo 1: Get the correct Application Context - URGENT fix */
+    //private ReceiptHelper mReceiptHelper = new ReceiptHelper(getApplicationContext());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         mBarChart = (BarChart) findViewById(R.id.bar_chart);
+
+        //Todo 2: This code should work with Todo 1 done, Query is not good. */
+        /*SQLiteDatabase db = mReceiptHelper.getReadableDatabase();
+        String[] queryColumns = {"date","items"};
+
+        Cursor cs = db.query(DATABASE_NAME, queryColumns, null, null, null, null, null);*/
 
         mLabels = new ArrayList<>();
         mLabels.add("Jan");
@@ -55,20 +60,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mDataSet.setColors(ColorTemplate.PASTEL_COLORS);
 
         mDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
-        /*IAxisValueFormatter formatter = new IAxisValueFormatter() {
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-                return mLabels.get((int)value);
-            }
-        };
-        XAxis xAxis = mBarChart.getXAxis();
-        xAxis.setGranularity(1f);
-        xAxis.setValueFormatter(formatter);*/
-        //BarData data = new BarData(mDataSet);
         mBarChart.setData(mData);
         mBarChart.invalidate();
-        mBarChart.animateY(5000);
+        mBarChart.animateY(3000);
 
+        // Todo 3: LimitLine not working yet - not urgent */
         LimitLine line = new LimitLine(10f);
         //mData.addLimitLine(line);
         Description description = new Description();
@@ -76,73 +72,9 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mBarChart.setDescription(description);
     }
 
-
     @Override
     public void update() {
         System.out.print("Hello Graph!");
     }
 
-
-
-
-
-
-
-    /*private class BarEntry {
-        private double price;
-        private int numBars;
-
-
-        public BarEntry(double price, int numBars) {
-            this.price = price;
-            this.numBars = numBars;
-        }
-
-        public double getPrice() {
-            return price;
-        }
-
-        public int getNumBars() {
-            return numBars;
-        }
-
-        public void setPrice(double price) {
-            this.price = price;
-        }
-
-        public void setNumBars(int numBars) {
-            this.numBars = numBars;
-        }
-    }
-
-    private class BarDataSet{
-        private ArrayList<BarEntry> myarray;
-        private String someString;
-
-
-        public BarDataSet(ArrayList<BarEntry> myarray, String someString) {
-            this.myarray = myarray;
-            this.someString = someString;
-        }
-
-        public ArrayList<BarEntry> getMyarray() {
-            return myarray;
-        }
-
-        public void setMyarray(ArrayList<BarEntry> myarray) {
-            this.myarray = myarray;
-        }
-
-        public String getSomeString() {
-            return someString;
-        }
-
-        public void setSomeString(String someString) {
-            this.someString = someString;
-        }
-    }
-
-    private class BarChar{
-
-    }*/
 }
