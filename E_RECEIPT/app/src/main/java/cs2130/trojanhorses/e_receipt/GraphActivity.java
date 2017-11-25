@@ -62,11 +62,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         }
         //Log.d("TAG", prices.toString());*/
 
-        Log.d("TAG", Double.toString(getTotal(receipts, "2015530")));
-        Log.d("TAG", Double.toString(getTotal(receipts, "2015430")));
-        Log.d("TAG", Double.toString(getTotal(receipts, "2015330")));
-        Log.d("TAG", Double.toString(getTotal(receipts, "20155230")));
-        Log.d("TAG", Double.toString(getTotal(receipts, "2015130")));
+        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015530")));
+        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015430")));
+        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015330")));
+        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015230")));
+        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015130")));
 
 
 
@@ -78,11 +78,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mLabels.add("May");
 
         mEntries = new ArrayList<>();
-        mEntries.add(new BarEntry(1f,700));
-        mEntries.add(new BarEntry(2f,650));
-        mEntries.add(new BarEntry(3f,675));
-        mEntries.add(new BarEntry(4f,500));
-        mEntries.add(new BarEntry(5f,480));
+        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, "2015530")));
+        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, "2015430")));
+        mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, "2015330")));
+        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, "2015230")));
+        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, "2015130")));
 
         mDataSet = new BarDataSet(mEntries, "Month");
 
@@ -108,22 +108,30 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         System.out.print("Hello Graph!");
     }
 
-    public double getTotal(List<Receipt> list, String date){
+    public int getTotalByMonth(List<Receipt> list, String date){
         //int convertedDate = Integer.parseInt(date);
         //int endingDate = date.charAt((4));
         int count = 0;
         double value = 0;
 
-        do{
+        while ( count < list.size()) {
+            if (list.get(count).getDate().charAt(4) == date.charAt(4)) {
+                prices.add(Double.parseDouble(list.get(count).getTotal().substring(1)));
+                value += Double.parseDouble(list.get(count).getTotal().substring(1));
+            }
+
+            count ++;
+        }
+        /*do{
 
             prices.add(Double.parseDouble(list.get(count).getTotal().substring(1)));
             value += Double.parseDouble(list.get(count).getTotal().substring(1));
 
-            //Log.d("VALUE",  "Value: "+value);
+            Log.d("VALUE",  "Value: "+value+ "");
             count++;
         }
-        while (list.get(count).getDate().charAt(4) == date.charAt(4));
-        return value;
+        while (list.get(count).getDate().substring(4,5).equals(date.substring(4,5)) || count >= (list.size()-2) );*/
+        return (int)value;
     }
 
 }
