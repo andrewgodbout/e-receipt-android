@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -116,6 +117,7 @@ public class ReceiptLab {
         }
     }
 
+    @NonNull
     private ReceiptCursorWrapper queryReceipts(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
                 ReceiptDbSchema.ReceiptTable.NAME,
@@ -177,7 +179,7 @@ public class ReceiptLab {
         return url;
     }
 
-    private void run() {
+    /*private void rund() {
         for ( int i = 30; i>1; i--) {
             queryParam = "201710";
             if (i < 10) {
@@ -187,6 +189,19 @@ public class ReceiptLab {
                 queryParam += i;
             }
             new eReceiptQuery(mCb).execute(buildURL());
+        }
+    }*/
+
+    private void run() {
+        for (int month = 5; month > 0; month--) {
+            for (int day = 30; day > 0; day--) {
+                //queryParam = "2017" + Integer.toString(month);
+                /*if (month < 10) {
+                    queryParam = 2017 + Integer.toString(month) +
+                }*/
+                queryParam = "2017" + Integer.toString(month) + Integer.toString(day);
+                new eReceiptQuery(mCb).execute(buildURL());
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package cs2130.trojanhorses.e_receipt;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -13,6 +14,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class GraphActivity extends AppCompatActivity implements Callbackable {
 
@@ -21,6 +23,9 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
     private BarChart mBarChart;
     private BarDataSet mDataSet;
     private BarData mData;
+    private ReceiptLab mReceiptLab;
+    private ArrayList<Double> prices;
+    private List<Receipt> receipts;
 
     private final String DATABASE_NAME = "receiptList.db";
 
@@ -38,6 +43,32 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         String[] queryColumns = {"date","items"};
 
         Cursor cs = db.query(DATABASE_NAME, queryColumns, null, null, null, null, null);*/
+
+
+        mReceiptLab = ReceiptLab.get(GraphActivity.this, this, false);
+
+        receipts = mReceiptLab.getReceipts();
+        prices = new ArrayList<>();
+
+        /*for(int i=0; i<receipts.size(); i++){
+            Log.d("CHECK","Date: "+receipts.get(i).getDate()+ "Price: "+receipts.get(i).getTotal());
+        }*/
+
+
+        /*for (int i =5; i > 0; i--){
+            String date = "2017"+Integer.toString(i)+"30";
+            Log.d("TAG", date);
+            prices.add(getTotal(receipts, date));
+        }
+        //Log.d("TAG", prices.toString());*/
+
+        Log.d("TAG", Double.toString(getTotal(receipts, "2015530")));
+        Log.d("TAG", Double.toString(getTotal(receipts, "2015430")));
+        Log.d("TAG", Double.toString(getTotal(receipts, "2015330")));
+        Log.d("TAG", Double.toString(getTotal(receipts, "20155230")));
+        Log.d("TAG", Double.toString(getTotal(receipts, "2015130")));
+
+
 
         mLabels = new ArrayList<>();
         mLabels.add("Jan");
@@ -75,6 +106,24 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
     @Override
     public void update() {
         System.out.print("Hello Graph!");
+    }
+
+    public double getTotal(List<Receipt> list, String date){
+        //int convertedDate = Integer.parseInt(date);
+        //int endingDate = date.charAt((4));
+        int count = 0;
+        double value = 0;
+
+        do{
+
+            prices.add(Double.parseDouble(list.get(count).getTotal().substring(1)));
+            value += Double.parseDouble(list.get(count).getTotal().substring(1));
+
+            //Log.d("VALUE",  "Value: "+value);
+            count++;
+        }
+        while (list.get(count).getDate().charAt(4) == date.charAt(4));
+        return value;
     }
 
 }
