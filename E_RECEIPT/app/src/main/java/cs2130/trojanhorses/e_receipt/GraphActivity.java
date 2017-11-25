@@ -61,7 +61,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
                 return mLabels.get((int)value);
             }
         };
-
         XAxis xAxis = mBarChart.getXAxis();
         xAxis.setGranularity(1f);
         xAxis.setValueFormatter(formatter);*/
