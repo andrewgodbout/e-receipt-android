@@ -15,25 +15,8 @@ import java.util.UUID;
  */
 
 public class ReceiptActivity extends AppCompatActivity {
-/**
- private static final String EXTRA_RECEIPT_ID =
-            "com.bignerdranch.android.criminalintent.crime_id";
 
-    public static Intent newIntent(Context packageContext, UUID receiptId) {
-        Intent intent = new Intent(packageContext, ReceiptActivity.class);
-        intent.putExtra(EXTRA_RECEIPT_ID, receiptId);
-        return intent;
-    }
-
-    @Override
-    protected Fragment createFragment() {
-        UUID crimeId = (UUID) getIntent()
-                .getSerializableExtra(EXTRA_RECEIPT_ID);
-        return ReceiptFragment.newInstance(crimeId);
-    }
-} **/
-
-   private static final String ITEM = "items";
+    private static final String ITEM = "items";
     private static final String DATE = "date";
     private static final String STORE = "store";
     private static final String RECEIPT_ID = "receipt_id";
@@ -56,10 +39,10 @@ public class ReceiptActivity extends AppCompatActivity {
             items[i] = item.get(i);
         }
 
-        UUID receiptID = (UUID) intent.getSerializableExtra(RECEIPT_ID);
+        /**This is not needed, I dont know why though*/
+        //UUID receiptID = (UUID) intent.getSerializableExtra(RECEIPT_ID);
+        //mReceipt = ReceiptLab.get(ReceiptActivity.this, null, false).getReceipt(receiptID);
 
-
-        mReceipt = ReceiptLab.get(ReceiptActivity.this, null, false).getReceipt(receiptID);
         populateTextViews(storeName,date,items);
 
     }

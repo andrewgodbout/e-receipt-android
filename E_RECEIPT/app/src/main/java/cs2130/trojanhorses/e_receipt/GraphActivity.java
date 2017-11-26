@@ -51,11 +51,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mLabels.add("Jul");
 
         mEntries = new ArrayList<>();
-        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, barEntryDates(0)), mLabels.get(0)));
-        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, barEntryDates(1)), mLabels.get(1)));
+        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, barEntryDates(4)), mLabels.get(4)));
+        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, barEntryDates(3)), mLabels.get(3)));
         mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, barEntryDates(2)), mLabels.get(2)));
-        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, barEntryDates(3)), mLabels.get(3)));
-        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, barEntryDates(4)), mLabels.get(4)));
+        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, barEntryDates(1)), mLabels.get(1)));
+        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, barEntryDates(0)), mLabels.get(0)));
 
         mDataSet = new BarDataSet(mEntries, "Month");
         mDataSet.setValueTextSize(16);
@@ -75,7 +75,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mBarChart.animateY(3000);
 
         /** Set a LimitLine */
-        LimitLine line = new LimitLine(600f, "$ LimitPerMonth");
+        LimitLine line = new LimitLine(800f);//, "$ LimitPerMonth");
         line.setLineColor(Color.RED);
         line.setLineWidth(4f);
         line.setTextColor(Color.BLACK);
@@ -85,7 +85,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
 
         /** Set a Description */
         Description description = new Description();
-        description.setText("My Budget");
+        description.setText("");
         description.setTextSize(13);
         mBarChart.setDescription(description);
     }

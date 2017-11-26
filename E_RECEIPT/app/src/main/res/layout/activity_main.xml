@@ -11,15 +11,15 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <TableRow>
+        <TableRow android:layout_height="321dp">
 
             <Button
                 android:id="@+id/show_receipts"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="@string/show_receipt_button"
-                android:onClick="onClickShowReceiptsButton"/>
+                android:onClick="onClickShowReceiptsButton"
+                android:text="@string/show_receipt_button"/>
 
             <Button
                 android:id="@+id/check_budget"
@@ -32,7 +32,7 @@
 
         </TableRow>
 
-        <TableRow>
+        <TableRow android:layout_height="320dp">
 
             <Button
                 android:id="@+id/load_receipts"
@@ -44,11 +44,11 @@
 
             <Button
                 android:id="@+id/add_receipts"
-                android:layout_width="wrap_content"
+                android:layout_width="178dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:onClick="onClickAddReceiptsButton"
                 android:layout_margin="44dp"
+                android:onClick="onClickAddReceiptsButton"
                 android:text="@string/add_new_receipts_button"/>
 
 
