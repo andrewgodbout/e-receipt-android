@@ -14,6 +14,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class GraphActivity extends AppCompatActivity implements Callbackable {
@@ -26,6 +27,8 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
     private ReceiptLab mReceiptLab;
     private ArrayList<Double> prices;
     private List<Receipt> receipts;
+
+    private Calendar mCalendar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +45,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
             Log.d("CHECK", "Date: "+receipts.get(i).getDate()+ "Price: "+receipts.get(i).getTotal());
         }
 
-        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015530")));
-        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015430")));
-        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015330")));
-        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015230")));
-        Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015130")));
-
         mLabels = new ArrayList<>();
         mLabels.add("Jan");
         mLabels.add("Feb");
@@ -56,12 +53,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mLabels.add("May");
 
         mEntries = new ArrayList<>();
-        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, "20150530")));
-        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, "20150430")));
-        mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, "20150330")));
-        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, "20150230")));
-        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, "20150130")));
-
+        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, barEntryDates(0))));
+        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, barEntryDates(1))));
+        mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, barEntryDates(2))));
+        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, barEntryDates(3))));
+        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, barEntryDates(4))));
 
         mDataSet = new BarDataSet(mEntries, "Month");
         mDataSet.setValueTextSize(16);
@@ -102,6 +98,17 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
             count ++;
         }
         return (int)value;
+    }
+
+    public String barEntryDates (int i) {
+        String date;
+        mCalendar = Calendar.getInstance();
+
+        if ((mCalendar.get(Calendar.MONTH)+1-i) < 10)
+            date = ""+mCalendar.get(Calendar.YEAR) + "0" +(mCalendar.get(Calendar.MONTH)+1-i);
+        else
+            date = ""+mCalendar.get(Calendar.YEAR) + (mCalendar.get(Calendar.MONTH)+1-i);
+        return date+"00";
     }
 
 }

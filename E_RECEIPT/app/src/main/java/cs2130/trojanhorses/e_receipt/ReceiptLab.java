@@ -19,6 +19,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
 import java.util.UUID;
@@ -45,6 +46,7 @@ public class ReceiptLab {
     private final String SCHEME = "http";
     private final String QUERY = "date";
     private String queryParam = "201710";
+    private String queryYear = "2017";
 
     private ReceiptLab(Context context, boolean load){
         mContext = context;
@@ -53,7 +55,7 @@ public class ReceiptLab {
 
         if (load) {
             mReceipts = new ArrayList<>();
-            run();
+            runMultiple();
         }
     }
 
@@ -149,6 +151,36 @@ public class ReceiptLab {
             e.printStackTrace();
         }
         return url;
+    }
+
+    private void runMultiple() {
+        Calendar c = Calendar.getInstance();
+
+        for (int month = 0; month < 5; month++) {
+            for (int day = 30; day > 0; day--) {
+                if ((c.get(Calendar.MONTH)-month)+1 < 10) {
+                    if (day % 5 == 0) {
+                        if (day < 10) {
+                            queryParam = queryYear + "0" + ((c.get(Calendar.MONTH) - month)+1) + "0" + Integer.toString(day);
+                            new eReceiptQuery(mCb).execute(buildURL());
+                        } else {
+                            queryParam = queryYear + "0" + ((c.get(Calendar.MONTH) - month)+1) + Integer.toString(day);
+                            new eReceiptQuery(mCb).execute(buildURL());
+                        }
+                    }
+                }else {
+                    if (day % 5 == 0) {
+                        if (day<10) {
+                            queryParam = queryYear + ((c.get(Calendar.MONTH) - month) + 1) + "0" + Integer.toString(day);
+                            new eReceiptQuery(mCb).execute(buildURL());
+                        } else {
+                            queryParam = queryYear + ((c.get(Calendar.MONTH) - month) + 1) + Integer.toString(day);
+                            new eReceiptQuery(mCb).execute(buildURL());
+                        }
+                    }
+                }
+            }
+        }
     }
 
     private void run() {
