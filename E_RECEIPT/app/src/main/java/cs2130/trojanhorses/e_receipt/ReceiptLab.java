@@ -44,7 +44,6 @@ public class ReceiptLab {
     private final String PATH = "CS2130/e-receipt/";//?date=20171004";
     private final String SCHEME = "http";
     private final String QUERY = "date";
-    //private final String QUERY_PARAM = "20171021";
     private String queryParam = "201710";
 
     private ReceiptLab(Context context, boolean load){
@@ -58,14 +57,6 @@ public class ReceiptLab {
         }
     }
 
-
-    /**Commented out in case database fails */
-    /*private ReceiptLab(Context context) {
-        //Log.d("TAG", "receipt lab executed");
-        mReceipts = new ArrayList<>();
-        run();
-    }*/
-
     public static ReceiptLab get(Context context, Callbackable cb, boolean load) {
         if (cb != null){
             mCb = cb;
@@ -76,11 +67,6 @@ public class ReceiptLab {
         }
         return sReceiptLab;
     }
-
-    /**Commented out in case database fails */
-    /*public List<Receipt> getReceipts() {
-        return mReceipts;
-    } //this should be highlighted out once database works*/
 
     public List<Receipt> getReceipts(){
         List<Receipt> receipts = new ArrayList<>();
@@ -127,13 +113,11 @@ public class ReceiptLab {
                 null
         );
 
-        //return cursor;
         return new ReceiptCursorWrapper(cursor);
     }
 
     public void addReceipt(Receipt receipt){
         ContentValues values = getContentValues(receipt);
-        //Log.d("DEBUG", receipt.getStore());
         mDatabase.insert(ReceiptDbSchema.ReceiptTable.NAME, null, values);
     }
 
@@ -147,17 +131,7 @@ public class ReceiptLab {
                 new String [] { receipt.getId().toString()});
     }
 
-    /**Commented out in case database fails  */
-    /*public Receipt getReceipt(UUID id) {
-        for (Receipt receipt: mReceipts) {
-            if (receipt.getId().equals(id)) {
-                return receipt;
-            }
-        }
-        return null;
-    }*/
 
-    /**Commented out in case database fails  */
     public void add(Receipt receipt) {
         mReceipts.add(receipt);
     }
@@ -176,19 +150,6 @@ public class ReceiptLab {
         }
         return url;
     }
-
-    /*private void run() {
-        for ( int i = 30; i>1; i--) {
-            queryParam = "201710";
-            if (i < 10) {
-                queryParam = "2017100";
-                queryParam += i;
-            } else {
-                queryParam += i;
-            }
-            new eReceiptQuery(mCb).execute(buildURL());
-        }
-    }*/
 
     private void run() {
         for (int month = 5; month > 0; month--) {
@@ -234,14 +195,8 @@ public class ReceiptLab {
             JSONArray item = items_list.getJSONArray(i);
             items[i] = new Item (item.getString(0), item.getDouble(1));
         }
-        //Log.d("TAG", items[0].getItemName());
+
         Receipt receipt = new Receipt(date_purchased, store_name, items);
-
-        /*JSONArray jsArr = jsonObject.getJSONArray("details");
-        for (int i = 0; i < jsArr.length(); i++) {
-            receipt.addTurn(jsArr.getString(i));
-        }*/
-
         return receipt;
     }
 
@@ -250,14 +205,6 @@ public class ReceiptLab {
         private Callbackable listener;
 
         private eReceiptQuery(Callbackable listener){this.listener = listener;}
-
-       /* @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            mLoading = true;
-            //mReceipts.clear();
-        }*/
 
         @Override
         protected String doInBackground(URL... params) {
@@ -279,28 +226,22 @@ public class ReceiptLab {
                 resultString = sb.toString();
             }catch(IOException e) {
                 e.printStackTrace();
-                /*Toast.makeText(this, "Error connecting to the Website ",
-                        Toast.LENGTH_SHORT).show();*/
             }finally {
                 httpURLConnection.disconnect();
             }
-            //Log.d("DEBUG", resultString);
             return resultString;
         }
 
         /**Code will not work for now because .add doesn't work */
         @Override
         protected void onPostExecute(String resultString) {
-            //Log.d("DEBUG", resultString);
             JSONObject jsonObject;
 
             try {
                 JSONArray jsonArray = new JSONArray(resultString);
                 for (int i = 0; i < jsonArray.length(); i++) {
                     jsonObject = jsonArray.getJSONObject(i);
-                    //Log.d("TAG", "Before");
                     mReceipt = parseReceipt(jsonObject);
-                    //Log.d("TAG", "After");
 
                     addReceipt(mReceipt);
                 }
@@ -308,14 +249,7 @@ public class ReceiptLab {
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                //mReceipts.clear();
-                //Toast.makeText(ReceiptListActivity.this, "Error loading receipts", Toast.LENGTH_SHORT).show();
-            } //finally {
-                //mLoading = false;
-            //}
-            //mReceiptAdapter.notifyDataSetChanged();
-            //mDataLoaded = true;
+            }
         }
     }
-
 }
