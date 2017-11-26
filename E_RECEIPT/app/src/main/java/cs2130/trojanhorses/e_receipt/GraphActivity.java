@@ -3,7 +3,6 @@ package cs2130.trojanhorses.e_receipt;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -44,10 +43,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         receipts = mReceiptLab.getReceipts();
         prices = new ArrayList<>();
 
-        for(int i=0; i<receipts.size(); i++){
-            Log.d("CHECK", "Date: "+receipts.get(i).getDate()+ "Price: "+receipts.get(i).getTotal());
-        }
-
         mLabels = new ArrayList<>();
         mLabels.add("Nov");
         mLabels.add("Oct");
@@ -78,9 +73,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mBarChart.setData(mData);
         mBarChart.invalidate();
         mBarChart.animateY(3000);
-
-        /** Set labels on */
-        //mBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mLabels));
 
         /** Set a LimitLine */
         LimitLine line = new LimitLine(600f, "$ LimitPerMonth");
