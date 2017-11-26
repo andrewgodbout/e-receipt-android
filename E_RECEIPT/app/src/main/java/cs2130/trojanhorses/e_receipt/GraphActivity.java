@@ -1,5 +1,6 @@
 package cs2130.trojanhorses.e_receipt;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -11,7 +12,10 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.ViewPortHandler;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -27,7 +31,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
     private ReceiptLab mReceiptLab;
     private ArrayList<Double> prices;
     private List<Receipt> receipts;
-
     private Calendar mCalendar;
 
     @Override
@@ -46,23 +49,29 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         }
 
         mLabels = new ArrayList<>();
-        mLabels.add("Jan");
-        mLabels.add("Feb");
-        mLabels.add("Mar");
-        mLabels.add("Apr");
-        mLabels.add("May");
+        mLabels.add("Nov");
+        mLabels.add("Oct");
+        mLabels.add("Sept");
+        mLabels.add("Aug");
+        mLabels.add("Jul");
 
         mEntries = new ArrayList<>();
-        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, barEntryDates(0))));
-        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, barEntryDates(1))));
-        mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, barEntryDates(2))));
-        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, barEntryDates(3))));
-        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, barEntryDates(4))));
+        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, barEntryDates(0)), mLabels.get(0)));
+        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, barEntryDates(1)), mLabels.get(1)));
+        mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, barEntryDates(2)), mLabels.get(2)));
+        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, barEntryDates(3)), mLabels.get(3)));
+        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, barEntryDates(4)), mLabels.get(4)));
 
         mDataSet = new BarDataSet(mEntries, "Month");
         mDataSet.setValueTextSize(16);
         mDataSet.setColors(ColorTemplate.PASTEL_COLORS);
         mDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
+        mDataSet.setValueFormatter(new IValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, Entry entry, int dataSetIndex, ViewPortHandler viewPortHandler) {
+                return entry.getData().toString()+ "(" + entry.getY() + ")";
+            }
+        } );
 
         mData = new BarData(mDataSet);
 
@@ -70,13 +79,22 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mBarChart.invalidate();
         mBarChart.animateY(3000);
 
+        /** Set labels on */
+        //mBarChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(mLabels));
 
-        // Todo 3: LimitLine not working yet - not urgent */
-        LimitLine line = new LimitLine(10f);
-        //mData.addLimitLine(line);
+        /** Set a LimitLine */
+        LimitLine line = new LimitLine(600f, "$ LimitPerMonth");
+        line.setLineColor(Color.RED);
+        line.setLineWidth(4f);
+        line.setTextColor(Color.BLACK);
+        line.setTextSize(14);
+        YAxis yAxis = mBarChart.getAxisLeft();
+        yAxis.addLimitLine(line);
 
+        /** Set a Description */
         Description description = new Description();
         description.setText("My Budget");
+        description.setTextSize(13);
         mBarChart.setDescription(description);
     }
 
