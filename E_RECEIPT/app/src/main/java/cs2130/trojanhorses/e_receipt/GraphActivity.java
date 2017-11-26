@@ -50,9 +50,9 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         receipts = mReceiptLab.getReceipts();
         prices = new ArrayList<>();
 
-        /*for(int i=0; i<receipts.size(); i++){
-            Log.d("CHECK","Date: "+receipts.get(i).getDate()+ "Price: "+receipts.get(i).getTotal());
-        }*/
+        for(int i=0; i<receipts.size(); i++){
+            Log.d("CHECK", "Date: "+receipts.get(i).getDate()+ "Price: "+receipts.get(i).getTotal());
+        }
 
 
         /*for (int i =5; i > 0; i--){
@@ -78,22 +78,24 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mLabels.add("May");
 
         mEntries = new ArrayList<>();
-        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, "2015530")));
-        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, "2015430")));
-        mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, "2015330")));
-        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, "2015230")));
-        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, "2015130")));
+        mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, "20150530")));
+        mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, "20150430")));
+        mEntries.add(new BarEntry(3f,getTotalByMonth(receipts, "20150330")));
+        mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, "20150230")));
+        mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, "20150130")));
+
 
         mDataSet = new BarDataSet(mEntries, "Month");
+        mDataSet.setValueTextSize(16);
+        mDataSet.setColors(ColorTemplate.PASTEL_COLORS);
+        mDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
 
         mData = new BarData(mDataSet);
 
-        mDataSet.setColors(ColorTemplate.PASTEL_COLORS);
-
-        mDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
         mBarChart.setData(mData);
         mBarChart.invalidate();
         mBarChart.animateY(3000);
+
 
         // Todo 3: LimitLine not working yet - not urgent */
         LimitLine line = new LimitLine(10f);
@@ -115,7 +117,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         double value = 0;
 
         while ( count < list.size()) {
-            if (list.get(count).getDate().charAt(4) == date.charAt(4)) {
+            if (list.get(count).getDate().substring(4,6).equals(date.substring(4,6))) {
                 prices.add(Double.parseDouble(list.get(count).getTotal().substring(1)));
                 value += Double.parseDouble(list.get(count).getTotal().substring(1));
             }
