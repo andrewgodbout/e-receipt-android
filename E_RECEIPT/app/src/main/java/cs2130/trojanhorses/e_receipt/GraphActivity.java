@@ -27,23 +27,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
     private ArrayList<Double> prices;
     private List<Receipt> receipts;
 
-    private final String DATABASE_NAME = "receiptList.db";
-
-    // Todo 1: Get the correct Application Context - URGENT fix */
-    //private ReceiptHelper mReceiptHelper = new ReceiptHelper(getApplicationContext());
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_graph);
         mBarChart = (BarChart) findViewById(R.id.bar_chart);
-
-        //Todo 2: This code should work with Todo 1 done, Query is not good. */
-        /*SQLiteDatabase db = mReceiptHelper.getReadableDatabase();
-        String[] queryColumns = {"date","items"};
-
-        Cursor cs = db.query(DATABASE_NAME, queryColumns, null, null, null, null, null);*/
-
 
         mReceiptLab = ReceiptLab.get(GraphActivity.this, this, false);
 
@@ -54,21 +42,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
             Log.d("CHECK", "Date: "+receipts.get(i).getDate()+ "Price: "+receipts.get(i).getTotal());
         }
 
-
-        /*for (int i =5; i > 0; i--){
-            String date = "2017"+Integer.toString(i)+"30";
-            Log.d("TAG", date);
-            prices.add(getTotal(receipts, date));
-        }
-        //Log.d("TAG", prices.toString());*/
-
         Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015530")));
         Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015430")));
         Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015330")));
         Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015230")));
         Log.d("TAG", Double.toString(getTotalByMonth(receipts, "2015130")));
-
-
 
         mLabels = new ArrayList<>();
         mLabels.add("Jan");
@@ -100,6 +78,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         // Todo 3: LimitLine not working yet - not urgent */
         LimitLine line = new LimitLine(10f);
         //mData.addLimitLine(line);
+
         Description description = new Description();
         description.setText("My Budget");
         mBarChart.setDescription(description);
@@ -111,8 +90,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
     }
 
     public int getTotalByMonth(List<Receipt> list, String date){
-        //int convertedDate = Integer.parseInt(date);
-        //int endingDate = date.charAt((4));
         int count = 0;
         double value = 0;
 
@@ -124,15 +101,6 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
 
             count ++;
         }
-        /*do{
-
-            prices.add(Double.parseDouble(list.get(count).getTotal().substring(1)));
-            value += Double.parseDouble(list.get(count).getTotal().substring(1));
-
-            Log.d("VALUE",  "Value: "+value+ "");
-            count++;
-        }
-        while (list.get(count).getDate().substring(4,5).equals(date.substring(4,5)) || count >= (list.size()-2) );*/
         return (int)value;
     }
 
