@@ -115,10 +115,10 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         String date;
         mCalendar = Calendar.getInstance();
 
-        if ((mCalendar.get(Calendar.MONTH)+1-i) < 10)
-            date = ""+mCalendar.get(Calendar.YEAR) + ".0" +(mCalendar.get(Calendar.MONTH)+1-i);
+        if ((mCalendar.get(Calendar.MONTH)+1-i)%12 < 10)
+            date = ""+mCalendar.get(Calendar.YEAR) + ".0" +((mCalendar.get(Calendar.MONTH)+1-i)%12);
         else
-            date = ""+mCalendar.get(Calendar.YEAR) + "." + (mCalendar.get(Calendar.MONTH)+1-i);
+            date = ""+mCalendar.get(Calendar.YEAR) + "." + (mCalendar.get(Calendar.MONTH)+1-i)%12;
         return date+".00";
     }
 
