@@ -183,23 +183,10 @@ public class ReceiptLab {
         }
     }
 
-    private void run() {
-        for (int month = 5; month > 0; month--) {
-            for (int day = 30; day > 0; day--) {
-                if (month < 10) {
-                    queryParam = "20170"+ Integer.toString(month) + Integer.toString(day);
-                } else {
-                    queryParam = "2017" + Integer.toString(month) + Integer.toString(day);
-                }
-                new eReceiptQuery(mCb).execute(buildURL());
-            }
-        }
-    }
-
     private static ContentValues getContentValues(Receipt receipt) {
         ContentValues values = new ContentValues();
         values.put(ReceiptDbSchema.ReceiptTable.Cols.UUID, receipt.getId().toString());
-        values.put(ReceiptDbSchema.ReceiptTable.Cols.DATE, receipt.getDate().toString());
+        values.put(ReceiptDbSchema.ReceiptTable.Cols.DATE, receipt.getDate());
         values.put(ReceiptDbSchema.ReceiptTable.Cols.STORE, receipt.getStore());
 
         JSONArray jsonArray = new JSONArray();
@@ -208,8 +195,6 @@ public class ReceiptLab {
         for(int i = 0; i < items.length; i++)
             jsonArray.put(items[i]);
 
-        //String myString = "{\"items\":[\"Keyboard, 0.99\"]}";
-        //Log.d("DEBUG", myString);
         values.put(ReceiptDbSchema.ReceiptTable.Cols.ITEMS, jsonArray.toString());
 
         return values;
@@ -218,6 +203,10 @@ public class ReceiptLab {
     private Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
         String date_purchased = jsonObject.getString("date");
         /**Call a parse date method over here*/
+
+        String date = date_purchased.substring(0,4) + "." + date_purchased.substring(4,6)+ "."
+                + date_purchased.substring(6);
+
         JSONArray items_list = jsonObject.getJSONArray("items");
         String store_name = jsonObject.getString("store");
 
@@ -228,7 +217,7 @@ public class ReceiptLab {
             items[i] = new Item (item.getString(0), item.getDouble(1));
         }
 
-        Receipt receipt = new Receipt(date_purchased, store_name, items);
+        Receipt receipt = new Receipt(date, store_name, items);
         return receipt;
     }
 

@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void onClickShowReceiptsButton(View view){
         mLoading = false;
-        //Intent intent = ReceiptListActivity.newIntent(MainActivity.this);
         Intent intent = new Intent (this, ReceiptListActivity.class);
         intent.putExtra("load", mLoading);
         startActivity(intent);

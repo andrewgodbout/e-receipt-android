@@ -71,7 +71,6 @@ public class ReceiptActivity extends AppCompatActivity {
         TextView textViewTotalPrice = (TextView) findViewById (R.id.receipt_price);
 
         textViewStoreName.setText(name);
-        textViewDate.setText(date);
         textViewDetails.setText(convertArray(data));
         textViewTotalPrice.setText(getTotal(data));
     }

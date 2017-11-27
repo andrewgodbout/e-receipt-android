@@ -43,6 +43,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         receipts = mReceiptLab.getReceipts();
         prices = new ArrayList<>();
 
+
         mLabels = new ArrayList<>();
         mLabels.add("Nov");
         mLabels.add("Oct");
@@ -100,7 +101,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         double value = 0;
 
         while ( count < list.size()) {
-            if (list.get(count).getDate().substring(4,6).equals(date.substring(4,6))) {
+            if (list.get(count).getDate().substring(5,7).equals(date.substring(5,7))) {
                 prices.add(Double.parseDouble(list.get(count).getTotal().substring(1)));
                 value += Double.parseDouble(list.get(count).getTotal().substring(1));
             }
@@ -115,10 +116,10 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mCalendar = Calendar.getInstance();
 
         if ((mCalendar.get(Calendar.MONTH)+1-i) < 10)
-            date = ""+mCalendar.get(Calendar.YEAR) + "0" +(mCalendar.get(Calendar.MONTH)+1-i);
+            date = ""+mCalendar.get(Calendar.YEAR) + ".0" +(mCalendar.get(Calendar.MONTH)+1-i);
         else
-            date = ""+mCalendar.get(Calendar.YEAR) + (mCalendar.get(Calendar.MONTH)+1-i);
-        return date+"00";
+            date = ""+mCalendar.get(Calendar.YEAR) + "." + (mCalendar.get(Calendar.MONTH)+1-i);
+        return date+".00";
     }
 
 }
