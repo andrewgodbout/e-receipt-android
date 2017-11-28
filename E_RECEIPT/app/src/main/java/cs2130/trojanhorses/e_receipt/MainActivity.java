@@ -5,9 +5,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-
-
 public class MainActivity extends AppCompatActivity {
+
+    private boolean mLoading;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -16,9 +16,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickShowReceiptsButton(View view){
-        //mLoading = false;
+        mLoading = false;
         Intent intent = new Intent (this, ReceiptListActivity.class);
-        intent.putExtra("load", false);
+        intent.putExtra("load", mLoading);
         startActivity(intent);
     }
 
@@ -29,9 +29,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickLoadReceiptsButton(View view){
-        //mLoading=true;
+        mLoading=true;
         Intent intent = new Intent (this, ReceiptListActivity.class);
-        intent.putExtra("load", true);
+        intent.putExtra("load", mLoading);
         startActivity(intent);
     }
 
