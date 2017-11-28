@@ -3,10 +3,8 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/new_Receipt"
-        android:icon="@drawable/ic_menu_add"
-        android:title="@string/new_receipt"
-        app:showAsAction="ifRoom|withText"
-        />
+        android:id="@+id/show_subtitle"
+        android:title="@string/show_subtitle"
+        app:showAsAction="ifRoom"/>
 
 </menu>

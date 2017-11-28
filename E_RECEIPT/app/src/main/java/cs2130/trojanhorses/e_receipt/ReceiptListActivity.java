@@ -28,6 +28,7 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     private RecyclerView mRecyclerView;
     private ReceiptAdapter mReceiptAdapter;
     private boolean mLoading;
+    private boolean mSubtitleVisible;
 
     public void update() {updateRecyclerView();}
 
@@ -50,6 +51,12 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_receipt_list, menu);
+        MenuItem subtitleItem = menu.findItem(R.id.show_subtitle);
+        if (mSubtitleVisible){
+            subtitleItem.setTitle(R.string.hide_subtitle);
+        } else {
+            subtitleItem.setTitle(R.string.show_subtitle);
+        }
 
         return true;
     }
@@ -57,11 +64,23 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.new_Receipt:
-
+            case R.id.show_subtitle:
+                mSubtitleVisible = !mSubtitleVisible;
+                ReceiptListActivity.this.invalidateOptionsMenu();
+                updateSubtitle();
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void updateSubtitle(){
+        int ReceiptCount = mReceiptLab.size();
+        String subtitle = getString(R.string.subtitle_format, ReceiptCount);
+        if(!mSubtitleVisible){
+            subtitle = null;
+        }
+        AppCompatActivity activity = (AppCompatActivity) ReceiptListActivity.this;
+        activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
     public static Intent newIntent(Context packageContext){
@@ -79,6 +98,8 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
             mReceiptAdapter.setReceipts(receipts);
             mReceiptAdapter.notifyDataSetChanged();
         }
+
+        updateSubtitle();
     }
 
     private void loadData() {

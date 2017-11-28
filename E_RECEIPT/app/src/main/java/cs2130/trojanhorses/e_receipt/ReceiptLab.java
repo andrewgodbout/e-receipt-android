@@ -47,6 +47,7 @@ public class ReceiptLab {
     private final String QUERY = "date";
     private String queryParam = "201710";
     private String queryYear = "2017";
+    private int mItems;
 
     private ReceiptLab(Context context, boolean load){
         mContext = context;
@@ -179,8 +180,13 @@ public class ReceiptLab {
                         }
                     }
                 }
+                mItems++;
             }
         }
+    }
+
+    public int size(){
+        return mItems;
     }
 
     private static ContentValues getContentValues(Receipt receipt) {
