@@ -68,39 +68,39 @@ public class ReceiptActivity extends AppCompatActivity {
         TextView textViewStoreName = (TextView) findViewById(R.id.textview_store_name);
         TextView textViewDate = (TextView) findViewById(R.id.textview_date);
         TextView textViewDetails = (TextView) findViewById (R.id.items_details);
+        TextView textViewPrice = (TextView) findViewById(R.id.items_price);
         TextView textViewTotalPrice = (TextView) findViewById (R.id.receipt_price);
 
         textViewStoreName.setText(name);
         textViewDate.setText(date);
-        textViewDetails.setText(convertArray(data));
+        textViewDetails.setText(convertArrayDetails(data));
+        textViewPrice.setText(convertArrayPrice(data));
         textViewTotalPrice.setText(getTotal(data));
     }
 
-    public String convertArray (Item [] data){
+    public String convertArrayDetails (Item [] data){
         StringBuilder sb = new StringBuilder();
         sb.append("\n\n");
         for (int i=0 ; i<data.length; i++) {
             sb.append((i+1)+" "+data[i].getItemName().substring(0,1).toUpperCase()+ // 1st letter of ItemName to UpperCase
-                    data[i].getItemName().trim().substring(1)+ // Rest of ItemName
-                    tabPrice(data[i].getItemName().trim().length(), String.valueOf(data[i].getItemPrice()))+ // Tab prices
-                    data[i].getItemPrice()+"$\n"); // Print Price
+                    data[i].getItemName().trim().substring(1)+"\n");// Rest of ItemName
+            //tabPrice(data[i].getItemName().trim().length(), String.valueOf(data[i].getItemPrice()))+ // Tab prices
+            //data[i].getItemPrice()+"$\n"); // Print Price
         }
         String details = sb.toString();
 
         return details;
     }
 
-    public String tabPrice(int length, String priceLength) {
-        int baseSpaces = 48;
-        baseSpaces -= length;
-        baseSpaces -= 2*priceLength.length();
-        String spaces="";
-        for (int i=0; i<baseSpaces; i++) {
-            if (i%2 == 0)
-                spaces +="\t";
-            spaces +=" ";
+    public String convertArrayPrice (Item [] data){
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n\n");
+        for (int i=0 ; i<data.length; i++) {
+            sb.append(data[i].getItemPrice()+"$\n"); // Print Price
         }
-        return spaces;
+        String details = sb.toString();
+
+        return details;
     }
 
     public String getTotal(Item[] data) {

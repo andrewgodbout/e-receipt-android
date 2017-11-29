@@ -15,6 +15,8 @@
 
             <Button
                 android:id="@+id/show_receipts"
+                android:drawableTop="@drawable/ic_show_receipt_50dp"
+                android:backgroundTint="@android:color/holo_blue_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -23,6 +25,8 @@
 
             <Button
                 android:id="@+id/check_budget"
+                android:drawableTop="@drawable/ic_bar_chart_50dp"
+                android:backgroundTint="@android:color/holo_green_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -36,6 +40,8 @@
 
             <Button
                 android:id="@+id/load_receipts"
+                android:drawableTop="@drawable/ic_cloud_download_black_50dp"
+                android:backgroundTint="@android:color/holo_orange_dark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -44,7 +50,9 @@
 
             <Button
                 android:id="@+id/add_receipts"
-                android:layout_width="178dp"
+                android:drawableTop="@drawable/ic_note_add_black_50dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="44dp"
