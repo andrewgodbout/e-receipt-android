@@ -44,12 +44,9 @@ public class ReceiptCursorWrapper extends CursorWrapper {
         return receipt;
     }
 
-    public Item[] parseItems(String json) throws JSONException {
+    private Item[] parseItems(String json) throws JSONException {
 
         JSONArray items_list = new JSONArray(json);
-        /*String newJson = items_list.getString(0);
-        //String[] item= new String[items_list.length()];
-        //String[] price= new String[items_list.length()];*/
 
         Item[] items = new Item[items_list.length()];
 
