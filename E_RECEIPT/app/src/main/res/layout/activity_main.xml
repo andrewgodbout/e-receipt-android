@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_margin="16dp">
 
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-        <TableRow android:layout_height="321dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|right"
+        android:orientation="vertical">
+
+        <LinearLayout   android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/show_receipts"
@@ -34,9 +36,12 @@
                 android:onClick="onClickCheckBudgetButton"
                 android:text="@string/check_budget_button"/>
 
-        </TableRow>
+        </LinearLayout>
 
-        <TableRow android:layout_height="320dp">
+
+        <LinearLayout   android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
 
             <Button
                 android:id="@+id/load_receipts"
@@ -59,11 +64,11 @@
                 android:onClick="onClickAddReceiptsButton"
                 android:text="@string/add_new_receipts_button"/>
 
+        </LinearLayout>
 
-        </TableRow>
+    </LinearLayout>
+
+</RelativeLayout>
 
 
-    </TableLayout>
 
-
-</LinearLayout>
