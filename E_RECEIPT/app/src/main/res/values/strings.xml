@@ -14,4 +14,5 @@
     <string name="show_subtitle">Show Number of Receipts</string>
     <string name="hide_subtitle">Hide Number of Receipts</string>
     <string name="subtitle_format">%1$d receipts</string>
+    <string name="Delete">Delete Receipt</string>
 </resources>

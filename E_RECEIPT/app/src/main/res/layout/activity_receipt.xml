@@ -110,4 +110,12 @@
             android:layout_marginRight="20dp"/>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/button"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:layout_marginTop="275dp"
+        android:text="@string/Delete"
+        android:visibility="visible"/>
+
 </LinearLayout>
