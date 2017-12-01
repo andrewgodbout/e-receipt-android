@@ -134,7 +134,7 @@ public class ReceiptLab {
 
         for (int month = 0; month < 5; month++) {
             for (int day = 30; day > 0; day--) {
-                if (((c.get(Calendar.MONTH)-month)+1)%12 < 10 && ((c.get(Calendar.MONTH)-month)+1)%12 > 0) {
+                if (((c.get(Calendar.MONTH)-month)+1)%12 < 10 && ((c.get(Calendar.MONTH)-month)+1)%12 > 0) { // From January to September
                     if (day % 5 == 0) {
                         if (day < 10) {
                             mQueryParam = mQueryYear + "0" + (((c.get(Calendar.MONTH) - month)+1)%12) + "0" + Integer.toString(day);
@@ -144,7 +144,7 @@ public class ReceiptLab {
                             new eReceiptQuery(mCb).execute(buildURL());
                         }
                     }
-                }else if (((c.get(Calendar.MONTH)-month)+1)%12 == 0) { // Special case for December
+                }else if (((c.get(Calendar.MONTH)-month)+1)%12 == 0) {                              // Special case for December
                     if (day % 5 == 0) {
                         if (day<10) {
                             mQueryParam = mQueryYear + "120" + Integer.toString(day);
@@ -154,7 +154,7 @@ public class ReceiptLab {
                             new eReceiptQuery(mCb).execute(buildURL());
                         }
                     }
-                }else {
+                }else {                                                                             // October and November
                     if (day % 5 == 0) {
                         if (day<10) {
                             mQueryParam = mQueryYear + (((c.get(Calendar.MONTH) - month) + 1)%12) + "0" + Integer.toString(day);
