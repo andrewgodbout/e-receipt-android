@@ -1,12 +1,10 @@
 package cs2130.trojanhorses.e_receipt;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,7 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.io.IOException;
 import java.util.List;
 
 /**
@@ -83,11 +80,6 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         activity.getSupportActionBar().setSubtitle(subtitle);
     }
 
-    public static Intent newIntent(Context packageContext){
-        Intent intent = new Intent (packageContext,ReceiptListActivity.class);
-        return intent;
-    }
-
     private void updateRecyclerView() {
         List<Receipt> receipts = mReceiptLab.getReceipts();
 
@@ -107,6 +99,9 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
         updateRecyclerView();
     }
 
+    /**
+     *  INNER CLASSES ReceiptHolder & ReceiptAdapter to build the list of Receipts
+     * */
     private class ReceiptHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         private TextView mPrice;
@@ -137,7 +132,6 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
             startActivity(intent);
         }
     }
-
 
     private class ReceiptAdapter extends RecyclerView.Adapter<ReceiptHolder>{
 

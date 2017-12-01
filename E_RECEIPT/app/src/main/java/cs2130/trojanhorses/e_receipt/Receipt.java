@@ -27,6 +27,7 @@ public class Receipt implements Serializable{
         mId = UUID.randomUUID();
     }
 
+    /** Getters & Setters */
     public UUID getId() {
         return mId;
     }
@@ -51,6 +52,9 @@ public class Receipt implements Serializable{
         return mItems;
     }
 
+    /**
+     * Converts the Array of Items into an ArrayList
+     * */
     public ArrayList<Item> convertToArrayList() {
         ArrayList<Item> arrayList = new ArrayList<>();
         for (Item i : mItems) {
@@ -59,11 +63,16 @@ public class Receipt implements Serializable{
         return arrayList;
     }
 
-    /** Receive a JSONObject to parse and create an Item */
+    /**
+     * Receive a JSONObject to parse and create an Item
+     * */
     public void setItems(Item[] items) {
         mItems = items;
     }
 
+    /**
+     * Returns a String with the total price of the Receipt
+     * */
     public String getTotal() {
 
         DecimalFormat df = new DecimalFormat("#.00");
@@ -74,11 +83,17 @@ public class Receipt implements Serializable{
         return "$"+df.format(total);
     }
 
+    /**
+     * SplitPrice gets the price value of the Item on the receipt
+     * */
     public Double splitPrice(String item) {
         String[] arrSplit = item.split(":");
         return Double.parseDouble(arrSplit[1].substring(2,arrSplit[1].length()-1));
     }
 
+    /**
+     * SplitName gets the name value of the Item on the receipt
+     * */
     public String splitName(String item) {
         String[] arrSplit = item.split(":");
         return (arrSplit[0]);

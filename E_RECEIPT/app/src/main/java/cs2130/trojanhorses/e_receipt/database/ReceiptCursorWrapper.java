@@ -2,11 +2,9 @@ package cs2130.trojanhorses.e_receipt.database;
 
 import android.database.Cursor;
 import android.database.CursorWrapper;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.UUID;
 
@@ -44,6 +42,9 @@ public class ReceiptCursorWrapper extends CursorWrapper {
         return receipt;
     }
 
+    /**
+     *  Parse the Json from the Database and converts it into an array of items.
+     *  */
     private Item[] parseItems(String json) throws JSONException {
 
         JSONArray items_list = new JSONArray(json);

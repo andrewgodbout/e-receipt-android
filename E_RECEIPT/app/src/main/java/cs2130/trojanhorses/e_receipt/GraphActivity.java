@@ -43,7 +43,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         receipts = mReceiptLab.getReceipts();
         prices = new ArrayList<>();
 
-
+        /** Raw Coded Last 5 months Labels to show on the top of the BarChart */
         mLabels = new ArrayList<>();
         mLabels.add("Nov");
         mLabels.add("Oct");
@@ -51,6 +51,10 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mLabels.add("Aug");
         mLabels.add("Jul");
 
+        /**
+         *  Sets the values to be display on the mBarChart
+         *  For each line you got an extra Bar to be displayed
+         * */
         mEntries = new ArrayList<>();
         mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, barEntryDates(4)), mLabels.get(4)));
         mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, barEntryDates(3)), mLabels.get(3)));
@@ -58,6 +62,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         mEntries.add(new BarEntry(4f,getTotalByMonth(receipts, barEntryDates(1)), mLabels.get(1)));
         mEntries.add(new BarEntry(5f,getTotalByMonth(receipts, barEntryDates(0)), mLabels.get(0)));
 
+        /** Adds mBarChart values to the mDataSet and customize the aspect of the mBarChart */
         mDataSet = new BarDataSet(mEntries, "Month");
         mDataSet.setValueTextSize(16);
         mDataSet.setColors(ColorTemplate.PASTEL_COLORS);
@@ -69,8 +74,12 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
             }
         } );
 
+        /**
+         *  Steps to make it into a mBarChart,
+         *  adding mDataSet to the mData and the mData to the mBarChart
+         *
+         *  */
         mData = new BarData(mDataSet);
-
         mBarChart.setData(mData);
         mBarChart.invalidate();
         mBarChart.animateY(3000);
@@ -93,9 +102,13 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
 
     @Override
     public void update() {
-        System.out.print("Hello Graph!");
     }
 
+    /**
+     *  Returns the total expenses of all the receipts on given month
+     *  TODO: Further Implementation: Just checks for month, does not care about years,
+     *  TODO: so on different years will add up repeated months.
+     * */
     public int getTotalByMonth(List<Receipt> list, String date){
         int count = 0;
         double value = 0;
@@ -111,6 +124,10 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         return (int)value;
     }
 
+    /**
+     *  Return exact month based on when you use the App ( if int value = 0 )
+     *  Or the previous months based on the number
+     * */
     public String barEntryDates (int i) {
         String date;
         mCalendar = Calendar.getInstance();

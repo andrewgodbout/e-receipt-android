@@ -15,6 +15,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Main Activity Buttons Actions
+     * */
     public void onClickShowReceiptsButton(View view){
         mLoading = false;
         Intent intent = new Intent (this, ReceiptListActivity.class);

@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 import cs2130.trojanhorses.e_receipt.database.ReceiptCursorWrapper;
 import cs2130.trojanhorses.e_receipt.database.ReceiptDbSchema;
@@ -42,7 +41,7 @@ public class ReceiptLab {
     private SQLiteDatabase mDatabase;
 
     private final String AUTHORITY = "137.149.157.18";
-    private final String PATH = "CS2130/e-receipt/";//?date=20171004";
+    private final String PATH = "CS2130/e-receipt/";
     private final String SCHEME = "http";
     private final String QUERY = "date";
     private String queryParam = "201710";
@@ -87,23 +86,6 @@ public class ReceiptLab {
         return receipts;
     }
 
-    public Receipt getReceipt(UUID id){
-        ReceiptCursorWrapper cursor = (ReceiptCursorWrapper) queryReceipts(
-                ReceiptDbSchema.ReceiptTable.Cols.UUID + " = ?",
-                new String[] { id.toString() }
-        );
-        try{
-            if(cursor.getCount() == 0){
-                return null;
-            }
-
-            cursor.moveToFirst();
-            return cursor.getReceipt();
-        } finally{
-            cursor.close();
-        }
-    }
-
     @NonNull
     private ReceiptCursorWrapper queryReceipts(String whereClause, String[] whereArgs){
         Cursor cursor = mDatabase.query(
@@ -119,21 +101,13 @@ public class ReceiptLab {
         return new ReceiptCursorWrapper(cursor);
     }
 
+    /**
+     * Add a receipt into the database
+     * */
     public void addReceipt(Receipt receipt){
         ContentValues values = getContentValues(receipt);
         mDatabase.insert(ReceiptDbSchema.ReceiptTable.NAME, null, values);
     }
-
-    public void updateReceipt(Receipt receipt){
-
-        ContentValues values = getContentValues(receipt);
-
-        String uuidString = receipt.getId().toString();
-        mDatabase.update(ReceiptDbSchema.ReceiptTable.NAME, values,
-                ReceiptDbSchema.ReceiptTable.Cols.UUID + " = ?",
-                new String [] { receipt.getId().toString()});
-    }
-
 
     public void add(Receipt receipt) {
         mReceipts.add(receipt);
@@ -154,6 +128,9 @@ public class ReceiptLab {
         return url;
     }
 
+    /**
+     * Run multiple calls to load the database with the last 5 months of random receipts
+     * */
     private void runMultiple() {
         Calendar c = Calendar.getInstance();
 
@@ -206,9 +183,11 @@ public class ReceiptLab {
         return values;
     }
 
+    /**
+     * Parse to Receipts from the Database JSONObject
+     * */
     private Receipt parseReceipt(JSONObject jsonObject) throws JSONException {
         String date_purchased = jsonObject.getString("date");
-        /**Call a parse date method over here*/
 
         String date = date_purchased.substring(0,4) + "." + date_purchased.substring(4,6)+ "."
                 + date_purchased.substring(6);
@@ -227,6 +206,9 @@ public class ReceiptLab {
         return receipt;
     }
 
+    /**
+     * AsyncTask to call the URL server to receive a JSONObject
+     * */
     private class eReceiptQuery extends AsyncTask<URL, Void, String> {
 
         private Callbackable listener;

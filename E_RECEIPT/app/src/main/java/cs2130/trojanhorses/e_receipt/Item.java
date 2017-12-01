@@ -34,6 +34,9 @@ public class Item implements Parcelable{
         }
     };
 
+    /**
+     * Getters & Setters
+     * */
     public String getItemName() {
         return mItemName;
     }
@@ -55,6 +58,9 @@ public class Item implements Parcelable{
         return mItemName+": $"+mItemPrice;
     }
 
+    /**
+     * Parcelable Override methods
+     * */
     @Override
     public int describeContents() {
         return 0;

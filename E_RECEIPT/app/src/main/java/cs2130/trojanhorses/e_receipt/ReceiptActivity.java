@@ -20,8 +20,6 @@ public class ReceiptActivity extends AppCompatActivity {
     private static final String DATE = "date";
     private static final String STORE = "store";
     private static final String RECEIPT_ID = "receipt_id";
-    private static Receipt mReceipt;
-    private static final String ARG_RECEIPT_ID = "receipt_id";
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -39,13 +37,10 @@ public class ReceiptActivity extends AppCompatActivity {
             items[i] = item.get(i);
         }
 
-        /**This is not needed, I dont know why though*/
-        //UUID receiptID = (UUID) intent.getSerializableExtra(RECEIPT_ID);
-        //mReceipt = ReceiptLab.get(ReceiptActivity.this, null, false).getReceipt(receiptID);
-
         populateTextViews(storeName,date,items);
 
     }
+
 
     public static Intent dataInstance(Context context, Receipt receipt){
 
@@ -63,6 +58,9 @@ public class ReceiptActivity extends AppCompatActivity {
         return intent;
     }
 
+    /**
+     * Load the TextView with the Receipt information
+     * */
     public void populateTextViews(String name, String date, Item [] data) {
 
         TextView textViewStoreName = (TextView) findViewById(R.id.textview_store_name);
@@ -78,14 +76,15 @@ public class ReceiptActivity extends AppCompatActivity {
         textViewTotalPrice.setText(getTotal(data));
     }
 
+    /**
+     * Methods to correctly load the Receipt Items values.
+     * */
     public String convertArrayDetails (Item [] data){
         StringBuilder sb = new StringBuilder();
         sb.append("\n\n");
         for (int i=0 ; i<data.length; i++) {
             sb.append((i+1)+" "+data[i].getItemName().substring(0,1).toUpperCase()+ // 1st letter of ItemName to UpperCase
                     data[i].getItemName().trim().substring(1)+"\n");// Rest of ItemName
-            //tabPrice(data[i].getItemName().trim().length(), String.valueOf(data[i].getItemPrice()))+ // Tab prices
-            //data[i].getItemPrice()+"$\n"); // Print Price
         }
         String details = sb.toString();
 
@@ -103,6 +102,9 @@ public class ReceiptActivity extends AppCompatActivity {
         return details;
     }
 
+    /**
+     * Gets the total price of the Receipt
+     * */
     public String getTotal(Item[] data) {
         DecimalFormat df = new DecimalFormat("#.00");
         double total=0;
