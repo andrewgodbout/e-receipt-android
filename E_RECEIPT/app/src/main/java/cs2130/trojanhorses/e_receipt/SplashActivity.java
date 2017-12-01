@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-
+        /**Delays the launch of the app*/
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
