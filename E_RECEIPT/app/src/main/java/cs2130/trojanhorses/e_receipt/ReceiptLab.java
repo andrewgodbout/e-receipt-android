@@ -147,10 +147,10 @@ public class ReceiptLab {
                 }else if (((c.get(Calendar.MONTH)-month)+1)%12 == 0) { // Special case for December
                     if (day % 5 == 0) {
                         if (day<10) {
-                            queryParam = queryYear + "120" + Integer.toString(day);
+                            mQueryParam = mQueryYear + "120" + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         } else {
-                            queryParam = queryYear + "12" + Integer.toString(day);
+                            mQueryParam = mQueryYear + "12" + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         }
                     }
