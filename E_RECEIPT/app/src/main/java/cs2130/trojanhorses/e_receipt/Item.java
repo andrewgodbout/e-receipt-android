@@ -7,6 +7,8 @@ import android.os.Parcelable;
  * Created by Aleix on 11/1/2017.
  */
 
+/**This class represents an individual item that contains name of the product and its price*/
+
 public class Item implements Parcelable{
 
     private String mItemName;

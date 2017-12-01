@@ -54,7 +54,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         /**
          *  Sets the values to be display on the mBarChart
          *  For each line you got an extra Bar to be displayed
-         * */
+         **/
         mEntries = new ArrayList<>();
         mEntries.add(new BarEntry(1f,getTotalByMonth(receipts, barEntryDates(4)), mLabels.get(4)));
         mEntries.add(new BarEntry(2f,getTotalByMonth(receipts, barEntryDates(3)), mLabels.get(3)));
@@ -77,8 +77,7 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         /**
          *  Steps to make it into a mBarChart,
          *  adding mDataSet to the mData and the mData to the mBarChart
-         *
-         *  */
+         **/
         mData = new BarData(mDataSet);
         mBarChart.setData(mData);
         mBarChart.invalidate();

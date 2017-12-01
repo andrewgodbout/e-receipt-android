@@ -9,6 +9,8 @@ import java.util.UUID;
  * Created by Aleix on 10/20/2017.
  */
 
+/**This class represents an individual receipt*/
+
 public class Receipt implements Serializable{
 
     private UUID mId;
@@ -97,13 +99,5 @@ public class Receipt implements Serializable{
     public String splitName(String item) {
         String[] arrSplit = item.split(":");
         return (arrSplit[0]);
-    }
-
-    public String itemToString() {
-        String res="";
-
-        res += splitName(mItems[0].toString())+" :$"+splitPrice(mItems[0].toString())+"\n";
-
-        return res;
     }
 }
