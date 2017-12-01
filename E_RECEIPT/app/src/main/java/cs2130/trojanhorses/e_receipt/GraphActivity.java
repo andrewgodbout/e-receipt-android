@@ -45,11 +45,11 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
 
         /** Raw Coded Last 5 months Labels to show on the top of the BarChart */
         mLabels = new ArrayList<>();
+        mLabels.add("Dec");
         mLabels.add("Nov");
         mLabels.add("Oct");
         mLabels.add("Sept");
         mLabels.add("Aug");
-        mLabels.add("Jul");
 
         /**
          *  Sets the values to be display on the mBarChart
@@ -132,9 +132,12 @@ public class GraphActivity extends AppCompatActivity implements Callbackable {
         String date;
         mCalendar = Calendar.getInstance();
 
-        if ((mCalendar.get(Calendar.MONTH)+1-i)%12 < 10)
-            date = ""+mCalendar.get(Calendar.YEAR) + ".0" +((mCalendar.get(Calendar.MONTH)+1-i)%12);
-        else
+        if ((mCalendar.get(Calendar.MONTH)+1-i)%12 < 10 || (mCalendar.get(Calendar.MONTH)+1-i)%12 == 0) {
+            if ((mCalendar.get(Calendar.MONTH) + 1 - i) % 12 == 0)
+                date = "" + mCalendar.get(Calendar.YEAR) + ".12";
+            else
+                date = "" + mCalendar.get(Calendar.YEAR) + ".0" + ((mCalendar.get(Calendar.MONTH) + 1 - i) % 12);
+        }else
             date = ""+mCalendar.get(Calendar.YEAR) + "." + (mCalendar.get(Calendar.MONTH)+1-i)%12;
         return date+".00";
     }

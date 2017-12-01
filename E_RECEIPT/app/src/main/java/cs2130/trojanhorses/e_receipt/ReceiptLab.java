@@ -136,13 +136,23 @@ public class ReceiptLab {
 
         for (int month = 0; month < 5; month++) {
             for (int day = 30; day > 0; day--) {
-                if (((c.get(Calendar.MONTH)-month)+1)%12< 10) {
+                if (((c.get(Calendar.MONTH)-month)+1)%12 < 10 && ((c.get(Calendar.MONTH)-month)+1)%12 > 0) {
                     if (day % 5 == 0) {
                         if (day < 10) {
                             queryParam = queryYear + "0" + (((c.get(Calendar.MONTH) - month)+1)%12) + "0" + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         } else {
                             queryParam = queryYear + "0" + (((c.get(Calendar.MONTH) - month)+1)%12) + Integer.toString(day);
+                            new eReceiptQuery(mCb).execute(buildURL());
+                        }
+                    }
+                }else if (((c.get(Calendar.MONTH)-month)+1)%12 == 0) { // Special case for December
+                    if (day % 5 == 0) {
+                        if (day<10) {
+                            queryParam = queryYear + "120" + Integer.toString(day);
+                            new eReceiptQuery(mCb).execute(buildURL());
+                        } else {
+                            queryParam = queryYear + "12" + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         }
                     }
