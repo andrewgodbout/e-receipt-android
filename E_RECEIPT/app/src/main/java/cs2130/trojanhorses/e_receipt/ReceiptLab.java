@@ -27,9 +27,7 @@ import cs2130.trojanhorses.e_receipt.database.ReceiptCursorWrapper;
 import cs2130.trojanhorses.e_receipt.database.ReceiptDbSchema;
 import cs2130.trojanhorses.e_receipt.database.ReceiptHelper;
 
-/**
- * Created by Aleix on 10/21/2017.
- */
+/**Parses and loads the JSONArray into receipt objects and stores them into the database*/
 
 public class ReceiptLab {
 
@@ -44,15 +42,15 @@ public class ReceiptLab {
     private final String PATH = "CS2130/e-receipt/";
     private final String SCHEME = "http";
     private final String QUERY = "date";
-    private String queryParam = "201710";
-    private String queryYear = "2017";
+    private String mQueryParam = "201710";
+    private String mQueryYear = "2017";
     private int mItems;
 
     private ReceiptLab(Context context, boolean load){
         mContext = context;
         mDatabase = new ReceiptHelper(mContext)
                 .getWritableDatabase();
-
+        /**if load = true, load data from server */
         if (load) {
             mReceipts = new ArrayList<>();
             runMultiple();
@@ -120,7 +118,7 @@ public class ReceiptLab {
             url = new URL (uri.scheme(SCHEME)
                     .authority(AUTHORITY)
                     .appendEncodedPath(PATH)
-                    .appendQueryParameter(QUERY, queryParam)
+                    .appendQueryParameter(QUERY, mQueryParam)
                     .build().toString());
         }catch(MalformedURLException e) {
             e.printStackTrace();
@@ -139,10 +137,10 @@ public class ReceiptLab {
                 if (((c.get(Calendar.MONTH)-month)+1)%12 < 10 && ((c.get(Calendar.MONTH)-month)+1)%12 > 0) {
                     if (day % 5 == 0) {
                         if (day < 10) {
-                            queryParam = queryYear + "0" + (((c.get(Calendar.MONTH) - month)+1)%12) + "0" + Integer.toString(day);
+                            mQueryParam = mQueryYear + "0" + (((c.get(Calendar.MONTH) - month)+1)%12) + "0" + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         } else {
-                            queryParam = queryYear + "0" + (((c.get(Calendar.MONTH) - month)+1)%12) + Integer.toString(day);
+                            mQueryParam = mQueryYear + "0" + (((c.get(Calendar.MONTH) - month)+1)%12) + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         }
                     }
@@ -159,10 +157,10 @@ public class ReceiptLab {
                 }else {
                     if (day % 5 == 0) {
                         if (day<10) {
-                            queryParam = queryYear + (((c.get(Calendar.MONTH) - month) + 1)%12) + "0" + Integer.toString(day);
+                            mQueryParam = mQueryYear + (((c.get(Calendar.MONTH) - month) + 1)%12) + "0" + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         } else {
-                            queryParam = queryYear + (((c.get(Calendar.MONTH) - month) + 1)%12) + Integer.toString(day);
+                            mQueryParam = mQueryYear + (((c.get(Calendar.MONTH) - month) + 1)%12) + Integer.toString(day);
                             new eReceiptQuery(mCb).execute(buildURL());
                         }
                     }
@@ -251,7 +249,7 @@ public class ReceiptLab {
             return resultString;
         }
 
-        /**Code will not work for now because .add doesn't work */
+        /**Adds the receipt to the database*/
         @Override
         protected void onPostExecute(String resultString) {
             JSONObject jsonObject;

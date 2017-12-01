@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+/**Primary screen that the user interacts with providing options to load, show, and display a budget*/
+
 public class MainActivity extends AppCompatActivity {
 
     private boolean mLoading;
@@ -16,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Main Activity Buttons Actions
+     * Only displays the receipts, data is NOT loaded from the server
      * */
     public void onClickShowReceiptsButton(View view){
         mLoading = false;
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-
+    /**Loads the data from the server*/
     public void onClickLoadReceiptsButton(View view){
         mLoading=true;
         Intent intent = new Intent (this, ReceiptListActivity.class);
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onClickAddReceiptsButton(View view){
-
+        Intent intent = new Intent(this, AddReceiptActivity.class);
+        startActivity(intent);
     }
 
 }

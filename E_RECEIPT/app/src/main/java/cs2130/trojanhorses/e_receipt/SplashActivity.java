@@ -9,7 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 /**
  * Created by davidadams on 2017-11-21.
  */
-
+/**Splash activity that loads a splash screen at the launch of the app*/
 public class SplashActivity extends AppCompatActivity {
 
     private static final int SPLASH_DISPLAY_TIME = 975;
@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-
+        /**Delays the launch of the app*/
         new Handler().postDelayed(new Runnable() {
             public void run() {
 

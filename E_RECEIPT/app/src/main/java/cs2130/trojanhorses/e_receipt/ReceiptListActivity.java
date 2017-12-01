@@ -19,6 +19,7 @@ import java.util.List;
  * Created by David on 10/20/2017.
  */
 
+/**Displays a list of receipts */
 public class ReceiptListActivity extends AppCompatActivity implements Callbackable {
 
     private ReceiptLab mReceiptLab;
@@ -121,9 +122,11 @@ public class ReceiptListActivity extends AppCompatActivity implements Callbackab
 
         public void bind (Receipt receipt){
             mReceipt = receipt;
-            mDate.setText("Date Purchased: "+receipt.getDate());
+            String datePurchased = "Date Purchased: "+receipt.getDate();
+            String storeName = "Store: "+receipt.getStore();
+            mDate.setText(datePurchased);
             mPrice.setText(mReceipt.getTotal());
-            mStore.setText("Store: "+receipt.getStore());
+            mStore.setText(storeName);
         }
 
         @Override
