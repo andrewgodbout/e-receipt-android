@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-/**Primary screen that the user interacts with, providing options to load, show, and display a budget*/
+/**Primary screen that the user interacts with, providing options to load, show, and display total spending */
 
 public class MainActivity extends AppCompatActivity {
 
